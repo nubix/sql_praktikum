@@ -1,6 +1,5 @@
-*.acn
-*.acr
-*.alg
+.*
+*.pdf
 *.aux
 *.bbl
 *.blg
@@ -16,9 +15,6 @@
 *.lof
 *.log
 *.lot
-*.maf
-*.mtc
-*.mtc0
 *.nav
 *.nlo
 *.out
@@ -28,5 +24,7 @@
 *.synctex.gz
 *.toc
 *.vrb
-*.xdy
-*.tdo
+*.maf
+*.mtc
+*.mtc0
+._*
