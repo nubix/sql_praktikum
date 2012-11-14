@@ -1,0 +1,23 @@
+
+
+User
+surrogatschlüssel weil weniger speicherplatz verbraucht
+last_seen solange auf 0 wie user eingeloggt. Bei Logout wird last_seen auf aktuelles datum gesetzt.
+
+User2Played
+Kombinierter PK aus allen Attributen damit auch ersichtlich ist, wie häufig ein Song gespielt wurde
+
+Album2Genere
+Das Album soll mehreren Genere zugehörig sein können, deshalb kombinierter PK in extratabelle
+
+Friendslist
+Kombinierter PK, weil Freundschaft nicht einseitig sein soll
+
+Recommendation
+recipient_id ist fremdschlüssel auf User_ID und muss different der recommender_id sein.
+
+Instrument
+Es soll auch Intrumente geben die noch nicht von Künstlern gespielt werden aber dennoch zur auswahl stehen.
+
+Song
+Status ist ein abgeleiteter schlüssel aus der anzahl der dazugehörigen kommentare
