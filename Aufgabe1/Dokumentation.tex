@@ -1,4 +1,5 @@
 \documentclass[11pt,a4paper,DIV=9]{scrartcl}
+
 \usepackage{pgf}
 \usepackage{tikz}
 \usetikzlibrary{arrows,automata,positioning,shadows}
@@ -61,23 +62,38 @@
 %%% Auf jedes Hausaufgabenblatt anpassen
 \blatt{1}
 %%%%%%%%%%%%%%%%%%%%%%%%
-\setcounter{section}{\blattnr}
 \begin{document}
 \makehomeworktitle
 
-\teil{(Einleitung}
-Unsere Dokumentation erkl\"art unser Modell zu dem communitybasierten Streamingdienst f\"ur Musik FIRST.FM.
-In der Dokumentation gilt folgende Formatierung: \\
-\\\textbf{Klasse}:						Name der Klasse [\textbf{fett}] 
-\\\texttt{Attribut}: 					Attribut einer Klasse [- davor, normal]
-\\\texttt{\textsc{Prim\"arschl\"ussel}}:		Attribut ist ein Prim\"arschl\"ussel [* davor]
-\\\texttt{\textit{Abgeleitetes Attribut}}:		Attribut ist wird abgeleitet [/ davor, \textit{kursiv}]
+\section{Einleitung}
+  In dieser Dokumentation werden die Besonderheiten des Klassendiagramms, für das communitybasierte Musik-Streamingportal FIRST.FM, erläutert. Bei dem Musik-Streamingportal FIRST.FM, haben Benutzer die Möglichkeit selbstkomponierte Musik zu veröffentlichen, Musik anderer Benutzer oder Bands zu hören sowie selbst einer Band beizutreten.\\
+  Am Ende dieser Dokumentation ist, zur besseren Übersicht, das komplette Klassendiagramm noch einmal in seiner Vollständigkeit zu finden.
 
-Anmerkung: Am Ende der Dokumentation ist das komplette Klassendiagramm nochmal abgebildet. \\
-\teil{(Detail}
+  \subsection{Formatierung} 
+    In der Dokumentation sowie im dazugehörigen Diagramm gilt die folgende Formatierung.
+
+    \begin{description}
+      \item [Klassennamen] \hfill \\
+        Der Name einer Klasse ist \textbf{fett} formatiert.
+      \item [Attribute] \hfill \\
+        Attribute einer Klasse sind folgendermaßen gekennzeichnet
+        \begin{itemize}
+          \item[-] Reguläres Attribut
+          \item[*] Attribut ist Teil des Primärschlüssel
+          \item[/] Abgeleitetes Attribut
+          \item[+] Fremdschlüssel
+        \end{itemize}
+      \item[Relationentypen] \hfill
+      \begin{itemize}
+        \item Reguläre Relationen zwischen Klassen sind durch eine einfache schwarze Linie gekennzeichnet.
+        \item Sogenannte \textit{XOR}-Relationen besitzen an der ausgehenden Klasse ein Rautesymbol ($\blacklozenge$). Hierbei darf die Klasse, für gespeicherten Entität, nur mit einer einzigen der Klassen gleichzeit in Relation stehen.
+      \end{itemize}
+    \end{description}
+
+\section{Klassen}
+\subsection{}
 
 
-
-
-
+\section{Klassendiagramm}
+\includegraphics[page=1, angle=90,trim=0cm 0cm 0cm 1cm, clip=true]{Diagram1}
 \end{document}
