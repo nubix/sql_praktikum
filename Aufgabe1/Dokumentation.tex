@@ -94,12 +94,13 @@
 
 \section{Klassen}
   \subsection{User}
-    Eine Entität der Klasse \textbf{User} wird aus Speicherplatzgründen durch einen Surrogatschlüssel (*id) identifiziert. Ein anderer Schlüsselkandidat ist hierbei der -loginname, dieser ist ebenfalls einmalig. Als weitere Besonderheit ist hierbei das Attribut -online zu sehen, welches \texttt{1} ist wenn der Benutzer online ist und \texttt{0} sonst. Der Onlinestatus lässt sich leider nicht ohne weiteres aus dem Attribut -last\_seen ableiten. Ein User ist nach dem Abmelden sofort Offline ist, allerdings auch sobald die Differenz zwischen -last\_seen und der Jetztzeit größer als 15 Minuten ist.
+    Eine Entität der Klasse \textbf{User} wird aus Speicherplatzgründen durch einen Surrogatschlüssel (*id) identifiziert. Ein anderer Schlüsselkandidat ist hierbei der -loginname, dieser ist ebenfalls einmalig. Als weitere Besonderheit ist hierbei das Attribut -online zu sehen, welches \texttt{wahr} ist wenn der Benutzer online ist und \texttt{falsch} sonst. Der Onlinestatus lässt sich leider nicht ohne weiteres aus dem Attribut -last\_seen ableiten. Ein User ist nach dem Abmelden sofort Offline ist, allerdings auch sobald die Differenz zwischen -last\_seen und der Jetztzeit größer als 15 Minuten ist.
   \subsection{Band}
     Eine \textbf{Band} besteht aus mindestens einem Usern. Dies mag auf anhieb nicht Sinnvoll erscheinen. Allerdings kann ein Benutzer auch Mitglied einer Band sein ohne, dass der Rest der Band bei \textsc{first.fm} einen Account haben muss. 
   \subsection{Bandmember}
     Die Klasse \textbf{Bandmember} soll es den Benutzern einer Band ermöglichen, Mitglieder einer Band hinzuzufügen welche nicht über einen Benutzeraccount bei \textsc{first.fm} verfügen. Um die Zugehörigkeit zu einer bestimmten Band zu definieren verfügen diese Entitäten über den Fremdschlüssel +band\_id. Desweiteren verfügen diese Entitäten über den Fremdschlüssel +instrument\_id, welche das von Ihnen in der Band gespiele Instrument definiert.
   \subsection{Song}
+    Ein einzelner Song verfügt natürlich immer über einen Titel (-title) und wurde meist zu einem bestimmten Datum veröffentlicht (-release\_date). Ausserdem verfügt die Klasse \textbf{Song} noch über ein abgeleitetes Attribut -/status welches sich aus der Quantität und Qualität von Bewertungen aus der Tabelle \textbf{Songrating} ableitet. 
   \subsection{Album}
   \subsection{Label}
     Die Klasse \textbf{Label} ist eine Liste von Labels, welche Alben veröffentlicht haben.
@@ -120,6 +121,7 @@
     Mit dieser Tabelle soll es einem Benutzer (+*recommender\_id) ermöglicht werden, einem anderen Benutzer (+*recipient\_id) einen Bestimmten Song (+*song\_id) zu empfehlen.
   \subsection{Songrating}
   \subsection{Friendslist}
+    Diese Tabelle ermöglichst es die Freundschaftsbeziehungen zwischen Benutzern darzustellen. Ein Freundschaft ist immer zweiseitig und somit wird gezeigt, dass ein Benutzer (+*user\_id) mit einem anderen Benutzer (+*friend\_id) in einem freundschaftlichem Verhältnis steht. Da es sein kann, dass ein Benutzer nicht mit einem anderen Befreundet sein möchte, gibt es noch das Attribut -active welches nur dann den Wert \texttt{wahr} besitzt wenn die Freundschaft von dem anderen Benutzer bestätigt wurde.
   \subsection{User2Played}
     Relationentabelle zwischen einem Benutzer und einem Song. Es soll dem Benutzer möglich sein herauszufinden wann und damit auch wie oft er einen bestimmten Song schon abgespielt hat.
   \subsection{Artist2Song}
