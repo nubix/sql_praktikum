@@ -102,23 +102,36 @@
   \subsection{Song}
   \subsection{Album}
   \subsection{Label}
+    Die Klasse \textbf{Label} ist eine Liste von Labels, welche Alben veröffentlicht haben.
   \subsection{Genre}
+    Die Klasse \textbf{Genre} ist eine Liste von Genre denen einzelne Songs oder ganze Alben angehören können. Der -name ist hierbei verpflichtend.
   \subsection{Comment}
   \subsection{Comment2User}
+    Relationentabelle zwischen einem Kommentar und einer Benutzer.
   \subsection{Comment2Song}
+    Relationentabelle zwischen einem Kommentar und einer Song.
   \subsection{Comment2Band}
+    Relationentabelle zwischen einem Kommentar und einer Band.
   \subsection{Instrument}
+    Die Klasse \textbf{Instrument} ist Liste von Instrumenten, welche von Benutzern oder Bandmitgliedern gespielt werden.
   \subsection{Upload}
+    Relationentabelle zwischen einem Benutzer und einer Song. Diese Tabelle ist vorhanden um zu kennzeichnen welcher Benutzer einen bestimmten Song zu einem bestimmten Datum hochgeladen hat.
   \subsection{Recomendation}
+    Mit dieser Tabelle soll es einem Benutzer (+*recommender\_id) ermöglicht werden, einem anderen Benutzer (+*recipient\_id) einen Bestimmten Song (+*song\_id) zu empfehlen.
   \subsection{Songrating}
   \subsection{Friendslist}
   \subsection{User2Played}
+    Relationentabelle zwischen einem Benutzer und einem Song. Es soll dem Benutzer möglich sein herauszufinden wann und damit auch wie oft er einen bestimmten Song schon abgespielt hat.
   \subsection{Artist2Song}
+    Relationentabelle zwischen einem Benutzer und einem Song, falls der Song eine solo Komposition des Benutzers ist.
   \subsection{User2Band}
+    Die Klasse \textbf{User2Band} definiert die Zugehörigkeit eines Benutzers zu einer Band, sowie über den Fremdschlüssel +instrument\_id das von dem Benutzer in der Band gespiele Instrument.
   \subsection{Band2Song}
+    Relationentabelle zwischen einer Band und einem Song, falls der Song eine Komposition einer Band ist.
   \subsection{Song2Genre}
+    Relationentabelle zwischen mehreren Genre und einem Song. Ermöglicht es einen Song mehreren Genre zu zuordnen.
   \subsection{Song2Album}
-  \subsection{Album2Label}
+    Relationentabelle zwischen einem Album und einem Song, falls der Song Teil eines oder mehrerer Alben ist.
 
 
 
