@@ -68,7 +68,7 @@
 \newpage
 \section{Einleitung}
   \subsection{Allgemeines}
-    In dieser Dokumentation werden die Besonderheiten des Klassendiagramms, für das communitybasierte Musik-Streamingportal \textsc{first.fm}, erläutert. Bei dem Musik-Streamingportal \textsc{first.fm}, haben Benutzer die Möglichkeit selbstkomponierte Musik zu veröffentlichen, Musik anderer Benutzer oder Bands zu hören sowie selbst einer Band beizutreten.\\
+    In dieser Dokumentation werden die Besonderheiten des Klassendiagramms, für das communitybasierte Musik-Streamingportal \textsc{first.fm}, erläutert. Bei dem Musik-Streamingportal \textsc{first.fm}, haben Benutzer die Möglichkeit selbstkomponierte Musik zu veröffentlichen, Musik anderer Benutzer oder Bands zu hören sowie selbst einer Band beizutreten (haben Sie wirklich die M\"oglichkeit einer Band beizutreten?).\\
     Am Ende dieser Dokumentation ist, zur besseren Übersicht, das komplette Klassendiagramm noch einmal in seiner Vollständigkeit zu finden.
 
   \subsection{Formatierung} 
@@ -88,19 +88,19 @@
       \item[Relationentypen] \hfill
       \begin{itemize}
         \item Reguläre Relationen zwischen Klassen sind durch eine einfache schwarze Linie gekennzeichnet.
-        \item Sogenannte \textit{XOR}-Relationen besitzen an der ausgehenden Klasse ein Rautesymbol ($\blacklozenge$). Hierbei darf die Klasse, für gespeicherten Entität, nur mit einer einzigen der Klassen gleichzeit in Relation stehen.
+        \item Sogenannte \textit{XOR}-Relationen besitzen an der ausgehenden Klasse ein Rautesymbol ($\blacklozenge$). Hierbei darf die Klasse, für die gespeicherte Entität, nur mit einer einzigen der Klassen gleichzeitig in Relation stehen.
       \end{itemize}
     \end{description}
 
 \section{Klassen}
   \subsection{User}
-    Eine Entität der Klasse \textbf{User} wird aus Speicherplatzgründen durch einen Surrogatschlüssel (*id) identifiziert. Ein anderer Schlüsselkandidat ist hierbei der -loginname, dieser ist ebenfalls einmalig. Als weitere Besonderheit ist hierbei das Attribut -online zu sehen, welches \texttt{wahr} ist wenn der Benutzer online ist und \texttt{falsch} sonst. Der Onlinestatus lässt sich leider nicht ohne weiteres aus dem Attribut -last\_seen ableiten. Ein User ist nach dem Abmelden sofort Offline ist, allerdings auch sobald die Differenz zwischen -last\_seen und der Jetztzeit größer als 15 Minuten ist.
+    Eine Entität der Klasse \textbf{User} wird aus Speicherplatzgründen durch einen Surrogatschlüssel (*id) identifiziert. Ein anderer Schlüsselkandidat ist hierbei der -loginname, dieser ist ebenfalls einmalig. Als weitere Besonderheit ist hierbei das Attribut -online zu sehen, welches \texttt{wahr} ist wenn der Benutzer online ist und sonst\texttt{falsch}. Der Onlinestatus lässt sich leider nicht ohne Weiteres aus dem Attribut -last\_seen ableiten. Ein User ist nach dem Abmelden sofort Offline, allerdings auch sobald die Differenz zwischen -last\_seen und der Jetztzeit größer als 15 Minuten ist.
   \subsection{Band}
-    Eine \textbf{Band} besteht aus mindestens einem Usern. Dies mag auf anhieb nicht Sinnvoll erscheinen. Allerdings kann ein Benutzer auch Mitglied einer Band sein ohne, dass der Rest der Band bei \textsc{first.fm} einen Account haben muss. 
+    Eine \textbf{Band} besteht aus mindestens einem User. Dies mag auf Anhieb nicht sinnvoll erscheinen, allerdings kann ein Benutzer auch Mitglied einer Band sein ohne, dass der Rest der Band bei \textsc{first.fm} einen Account haben muss. 
   \subsection{Bandmember}
-    Die Klasse \textbf{Bandmember} soll es den Benutzern einer Band ermöglichen, Mitglieder einer Band hinzuzufügen welche nicht über einen Benutzeraccount bei \textsc{first.fm} verfügen. Um die Zugehörigkeit zu einer bestimmten Band zu definieren verfügen diese Entitäten über den Fremdschlüssel +band\_id. Desweiteren verfügen diese Entitäten über den Fremdschlüssel +instrument\_id, welche das von Ihnen in der Band gespiele Instrument definiert.
+    Die Klasse \textbf{Bandmember} soll es den Benutzern einer Band ermöglichen, Mitglieder einer Band hinzuzufügen welche nicht über einen Benutzeraccount bei \textsc{first.fm} verfügen. Um die Zugehörigkeit zu einer bestimmten Band zu definieren verfügen diese Entitäten über den Fremdschlüssel +band\_id. Desweiteren verfügen diese Entitäten über den Fremdschlüssel +instrument\_id, welche das von Ihnen in der Band gespielte Instrument definiert.
   \subsection{Song}
-    Ein einzelner Song verfügt natürlich immer über einen Titel (-title) und wurde meist zu einem bestimmten Datum veröffentlicht (-release\_date). Ausserdem verfügt die Klasse \textbf{Song} noch über ein abgeleitetes Attribut -/status welches sich aus der Quantität und Qualität von Bewertungen aus der Tabelle \textbf{Songrating} ableitet. 
+    Ein einzelner Song verfügt natürlich immer über einen Titel (-title) und wurde meist zu einem bestimmten Datum veröffentlicht (-release\_date). Ausserdem verfügt die Klasse \textbf{Song} noch über ein abgeleitetes Attribut -/status welches sich aus der Quantität und Qualität von Bewertungen aus der Tabelle \textbf{Songrating} ableitet. (Bei einer Bewertung von 4,5 bei \"uber 10000 Bewertungen erh\"alt der Song einer Goldstatus, bei einer Bewertung von 4,6 bei \"uber 100000 Bewertungen den Platinstatus.) 
   \subsection{Album}
   \subsection{Label}
     Die Klasse \textbf{Label} ist eine Liste von Labels, welche Alben veröffentlicht haben.
@@ -108,32 +108,32 @@
     Die Klasse \textbf{Genre} ist eine Liste von Genre denen einzelne Songs oder ganze Alben angehören können. Der -name ist hierbei verpflichtend.
   \subsection{Comment}
   \subsection{Comment2User}
-    Relationentabelle zwischen einem Kommentar und einer Benutzer.
+    Relationentabelle zwischen einem Kommentar und einem Benutzer.
   \subsection{Comment2Song}
-    Relationentabelle zwischen einem Kommentar und einer Song.
+    Relationentabelle zwischen einem Kommentar und einem Song.
   \subsection{Comment2Band}
     Relationentabelle zwischen einem Kommentar und einer Band.
   \subsection{Instrument}
     Die Klasse \textbf{Instrument} ist Liste von Instrumenten, welche von Benutzern oder Bandmitgliedern gespielt werden.
   \subsection{Upload}
-    Relationentabelle zwischen einem Benutzer und einer Song. Diese Tabelle ist vorhanden um zu kennzeichnen welcher Benutzer einen bestimmten Song zu einem bestimmten Datum hochgeladen hat.
-  \subsection{Recomendation}
-    Mit dieser Tabelle soll es einem Benutzer (+*recommender\_id) ermöglicht werden, einem anderen Benutzer (+*recipient\_id) einen Bestimmten Song (+*song\_id) zu empfehlen.
+    Relationentabelle zwischen einem Benutzer und einem Song. Diese Tabelle ist n\"otig um zu kennzeichnen welcher Benutzer einen bestimmten Song zu einem bestimmten Datum hochgeladen hat.
+  \subsection{Recommendation}
+    Diese Tabelle soll es einem Benutzer (+*recommender\_id) ermöglicht, einem anderen Benutzer (+*recipient\_id) einen bestimmten Song (+*song\_id) zu empfehlen.
   \subsection{Songrating}
   \subsection{Friendslist}
-    Diese Tabelle ermöglichst es die Freundschaftsbeziehungen zwischen Benutzern darzustellen. Ein Freundschaft ist immer zweiseitig und somit wird gezeigt, dass ein Benutzer (+*user\_id) mit einem anderen Benutzer (+*friend\_id) in einem freundschaftlichem Verhältnis steht. Da es sein kann, dass ein Benutzer nicht mit einem anderen Befreundet sein möchte, gibt es noch das Attribut -active welches nur dann den Wert \texttt{wahr} besitzt wenn die Freundschaft von dem anderen Benutzer bestätigt wurde.
+    Diese Tabelle stellt die Freundschaftsbeziehungen zwischen Benutzern dar. Ein Freundschaft ist immer zweiseitig und somit wird gezeigt, dass ein Benutzer (+*user\_id) mit einem anderen Benutzer (+*friend\_id) in einem freundschaftlichem Verhältnis steht. Da es sein kann, dass ein Benutzer nicht mit einem anderen befreundet sein möchte, gibt es noch das Attribut -active welches nur dann den Wert \texttt{wahr} besitzt wenn die Freundschaft von dem anderen Benutzer bestätigt wurde.
   \subsection{User2Played}
     Relationentabelle zwischen einem Benutzer und einem Song. Es soll dem Benutzer möglich sein herauszufinden wann und damit auch wie oft er einen bestimmten Song schon abgespielt hat.
   \subsection{Artist2Song}
-    Relationentabelle zwischen einem Benutzer und einem Song, falls der Song eine solo Komposition des Benutzers ist.
+    Relationentabelle zwischen einem Benutzer und einem Song, falls der Song eine Solo-Komposition des Benutzers ist.
   \subsection{User2Band}
-    Die Klasse \textbf{User2Band} definiert die Zugehörigkeit eines Benutzers zu einer Band, sowie über den Fremdschlüssel +instrument\_id das von dem Benutzer in der Band gespiele Instrument.
+    Die Klasse \textbf{User2Band} definiert die Zugehörigkeit eines Benutzers zu einer Band, sowie über den Fremdschlüssel +instrument\_id, der das von dem Benutzer in der Band gespielte Instrument darstellt.
   \subsection{Band2Song}
     Relationentabelle zwischen einer Band und einem Song, falls der Song eine Komposition einer Band ist.
   \subsection{Song2Genre}
-    Relationentabelle zwischen mehreren Genre und einem Song. Ermöglicht es einen Song mehreren Genre zu zuordnen.
+    Relationentabelle zwischen mehreren Genres und einem Song. Ermöglicht es einem Song mehrere Genres zu zuordnen.
   \subsection{Song2Album}
-    Relationentabelle zwischen einem Album und einem Song, falls der Song Teil eines oder mehrerer Alben ist.
+    Relationentabelle zwischen einem Album und einem Song, falls der Song Teil eines Albums oder mehrerer Alben ist.
 
 
 
