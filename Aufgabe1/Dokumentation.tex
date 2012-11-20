@@ -102,17 +102,21 @@
   \subsection{Song}
     Ein einzelner Song verfügt natürlich immer über einen Titel (-title) und wurde meist zu einem bestimmten Datum veröffentlicht (-release\_date). Ausserdem verfügt die Klasse \textbf{Song} noch über ein abgeleitetes Attribut -/status welches sich aus der Quantität und Qualität von Bewertungen aus der Tabelle \textbf{Songrating} ableitet. (Bei einer Bewertung von 4,5 bei \"uber 10000 Bewertungen erh\"alt der Song einer Goldstatus, bei einer Bewertung von 4,6 bei \"uber 100000 Bewertungen den Platinstatus.) 
   \subsection{Album}
+    Hier wird dargestellt, welchen Namen (-name) das Album tr\"agt, an welchem Datum (-date) es ver\"offentlicht wurde und welchem Label (+label\_id) es zugeordnet wird.
+  \subsection{Album2Genre}
+    Relationentabelle zwischen einem Album und einem oder mehreren Genres. Ist notwendig um anzugeben, welchem Genre oder welchen Genres das Album angeh\"ort.
   \subsection{Label}
     Die Klasse \textbf{Label} ist eine Liste von Labels, welche Alben veröffentlicht haben.
   \subsection{Genre}
     Die Klasse \textbf{Genre} ist eine Liste von Genre denen einzelne Songs oder ganze Alben angehören können. Der -name ist hierbei verpflichtend.
   \subsection{Comment}
+    Die Klasse \textbf{Comment} ist n\"otig f\"ur das Erstellen von Kommentaren zu Songs, Alben, Bands oder Solok\"unstlern. Hierbei wird sowohl eine Zeit (-timestamp) an der das Kommentar erstellt wurde als auch der Inhalt (-content) des Kommentars und der Name des Benutzers (+user\_id) der den Kommentar (*id) erstellt hat, gespeichert.
   \subsection{Comment2User}
-    Relationentabelle zwischen einem Kommentar und einem Benutzer.
+    Relationentabelle zwischen einem Kommentar und einem Benutzer. Damit ein Benutzer einen anderen Benutzer oder Solok\"unstler kommentieren kann.
   \subsection{Comment2Song}
-    Relationentabelle zwischen einem Kommentar und einem Song.
+    Relationentabelle zwischen einem Kommentar und einem Song. Notwendig damit Benutzer Songs kommentieren k\"onnen.
   \subsection{Comment2Band}
-    Relationentabelle zwischen einem Kommentar und einer Band.
+    Relationentabelle zwischen einem Kommentar und einer Band. Ist dazu da, dass Benutzer ebenso Kommentare zu Bands abgeben k\"onnen.
   \subsection{Instrument}
     Die Klasse \textbf{Instrument} ist Liste von Instrumenten, welche von Benutzern oder Bandmitgliedern gespielt werden.
   \subsection{Upload}
@@ -120,6 +124,7 @@
   \subsection{Recommendation}
     Diese Tabelle soll es einem Benutzer (+*recommender\_id) ermöglicht, einem anderen Benutzer (+*recipient\_id) einen bestimmten Song (+*song\_id) zu empfehlen.
   \subsection{Songrating}
+   Relationentabelle zwischen einem Benutzer und einem Song. Ist notwendig, damit ein bestimmter Benutzer (+*user\_id) zu einem oder zu mehreren bestimmten Songs (+*song\_id) auf einer Skala von eins bis f\"unf Bewertungen (-rating) abgeben kann. Aus der Bewertung eines Songs leitet sich dann das Attribut -/status der Klasse \textbf{User} ab.
   \subsection{Friendslist}
     Diese Tabelle stellt die Freundschaftsbeziehungen zwischen Benutzern dar. Eine Freundschaft ist immer zweiseitig und somit wird gezeigt, dass ein Benutzer (+*user\_id) mit einem anderen Benutzer (+*friend\_id) in einem freundschaftlichem Verhältnis steht. Da es sein kann, dass ein Benutzer nicht mit einem anderen befreundet sein möchte, gibt es noch das Attribut -active welches nur dann den Wert \texttt{wahr} besitzt wenn die Freundschaft von dem anderen Benutzer bestätigt wurde.
   \subsection{User2Played}
