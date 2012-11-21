@@ -1,12 +1,11 @@
 \documentclass[11pt,a4paper,DIV=9]{scrartcl}
 
-\usepackage{pgf}
 \usepackage{tikz}
-\usetikzlibrary{arrows,automata,positioning,shadows}
 \usepackage{ngerman}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath,amssymb}
-\usetikzlibrary{shapes,snakes}
+\usepackage{hyperref}
+\hypersetup{linktoc=all}
 % Schriftart ändern
 \renewcommand{\rmdefault}{ppl}
 %Möglichkeit zur Änderung von Überschriften
@@ -93,10 +92,23 @@
 
 
 \section{Pre-Integration Analyse}
+  Bei der Betrachtung der gegebenen Schemata ist zu erkennen, dass es nur wenige Schnittpunkte gibt. Dies erlaubt eine relativ problemlose Zusammenführung beider Schemata.
 \section{Vergleich der Schemata}
-\section{Angleichung der Schemata}
-\section{Zusammenführung und Restrukturierung}
+  Beim Verg
 
+\section{Angleichung der Schemata}
+  \subsection{Genre}
+    Die Klasse \textbf{Genre} wurde um das Attribut -type ergänzt, welches durch einen numerischen Wert angibt, ob es sich dabei um ein Musik- oder Filmgenre handelt.
+
+  \subsection{Comment}
+    Die Klasse \textbf{Comment} wurde um das Attribut -update ergängzt. Hiermit wird der Anforderung Sorge getragen, dass auch der eventuelle Änderungszeitpunkt eines Kommentars zeitlich gespeichert werden soll. Dies kann nun als neues Feature auch der Userbase von \textsc{first.fm} bereitgestellt werden.
+    
+  \subsection{User}
+    Das Klassendiagramm von \textsc{netflax} sieht vor, dass für Leih- und Kaufverträge Name, Adresse und Kreditkartennummer des Vertragspartners (\textbf{Benutzer}) gespeichert wird. Für die Zusammenführung war es notwendig dies als optionale Attribute zu \textbf{User} hinzuzufügen.
+
+
+    
+\section{Zusammenführung und Restrukturierung}
 
 
 % \section{Ergebnis}
