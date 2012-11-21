@@ -93,20 +93,43 @@
 
 \section{Pre-Integration Analyse}
   Bei der Betrachtung der gegebenen Schemata ist zu erkennen, dass es nur wenige Schnittpunkte gibt. Dies erlaubt eine relativ problemlose Zusammenführung beider Schemata.
-  Die Schnittpunkte finden sich in den Klassen
-  \begin{description}
-    \item [\textbf{User} und \textbf{Benutzer}]
-    \item \textbf{Comment} und \textbf{Kommentare}
-    \item \textbf{Genre} und \textbf{Genres}
-  \end{description}
+  Bei den vorhandenen Schnittpunkten handelt es sich um folgende.
+  \begin{itemize}
+    \item[-] \textbf{User} und \textbf{Benutzer}
+    \item[-] \textbf{Comment} und \textbf{Kommentare}
+    \item[-] \textbf{Genre} und \textbf{Genres}
+  \end{itemize}
 
 \section{Vergleich der Schemata}
-  Beim Verg
+  Wir werden bei der Integration folgenden Entitäten aufeinander abbilden
+  \begin{itemize}
+    \item \textbf{Benutzer} auf \textbf{User}. Hierbei handelt es sich um synonyme Entitäten.
+    \item \textbf{Kommentare} auf \textbf{Comment}. Diese Entitäten sind teilsynonym, da es sich zwar in jedem Fall um Kommentare handelt, hierbei allerdings unterschiedliche Dinge Kommentiert werden.
+    \item \textbf{Genres} auf \textbf{Genre}. Auch diese Entitäten sind teilsynonym, da es sich in beiden Fällen um Genre handelt, allerdings um Genre von verschiedenen Dingen. Zur Unterscheidung wird ein Diskriminatorattribut (-type) eingeführt werden. 
+  \end{itemize}
+
+  Aufgrund der wenigen Überschneidungen gibt es keinerlei Kardinalitätskonflikte. Allerdings gibt es folgende Primärschlüsselkonflikte.
+  \begin{description}
+    \item[Benutzer *B-Nummer / User *id] \hfill \\
+      Die \textbf{Benutzer} *B-Nummer muss auf \textbf{User} *id abgebildet werden.
+    \item[Genres *Bezeichnung / Genre *id] \hfill \\
+      Die Identifikation von \textbf{Genres} *Bezeichnung wird auf die Identifikation per \textbf{Genre} *id umgestellt. Ein Surrogatschlüssel ist hier aus Speicherplatzgründen sinnvoll.
+    \item[Kommentare / Comment *id] \hfill \\
+      \textbf{Kommentare} bestizt keinen Primärschlüssel, deshalb wird hierfür der Surrogatschlüssel \textbf{Comment} *id übernommen.
+  \end{description}
+  
+  % \begin{description}
+  %   \item [User und Benutzer] \hfill  \\
+  %     \textbf{Benutzer} enthält andere Informationen als \textbf{User}. Alle ergänzenden Attribute aus \textbf{User}, bis auf eine Ausnahme, lassen sich ohne Konflikt um die Attribute aus \textbf{Benutzer} ergänzen. Alleine die -B-Nummer aus \textbf{Benutzer}, welche sich mit der -*id aus \textbf{User} kreuzt, könnten in Konflikt stehen. Hierbei kann bei der Migration der Daten allerdings einfach die -B-Nummer der Datenbasis geändert werden.
+  %   \item [Comment und Kommentare] \hfill  \\
+  %     In der Klasse \textbf{Kommentare} befindet sich, im Gegensatz zu \textbf{Comment} noch das letzte Änderungsdatum des Datensatzes. Dies aber als neues Feature auch der Userbase von \textsc{first.fm} bereitgestellt werden. Eine Erweiterung um das Attribut ist also Problemlos möglich.
+  %   \item [Genre und Genres] \hfill \\
+  %     Die Klasse \textbf{Genre} wurde um das Attribut -type ergänzt, welches durch einen numerischen Wert angibt, ob es sich dabei um ein Musik- oder Filmgenre handelt. Im \textsc{netflix} Schema wurden die Genre durch einen Namen identifiziert, diese Identifikation soll nun der durch einen Surrogatschlüssel angelichen werden. 
+  % \end{description}
 
 \section{Angleichung der Schemata}
-  \subsection{Genre}
-    Die Klasse \textbf{Genre} wurde um das Attribut -type ergänzt, welches durch einen numerischen Wert angibt, ob es sich dabei um ein Musik- oder Filmgenre handelt.
-
+  \subsection{Genre} 
+    Die Klasse \textbf{Genre} wurde um das Disrkiminatorattribut -type ergänzt, welches durch einen numerischen Wert angibt, ob es sich dabei um ein Musik- oder Filmgenre handelt. Im \textsc{netflix} Schema wurden die Genre durch einen Namen identifiziert, diese Identifikation soll nun der durch einen Surrogatschlüssel angelichen werden.
   \subsection{Comment}
     Die Klasse \textbf{Comment} wurde um das Attribut -update ergängzt. Hiermit wird der Anforderung Sorge getragen, dass auch der eventuelle Änderungszeitpunkt eines Kommentars zeitlich gespeichert werden soll. Dies kann nun als neues Feature auch der Userbase von \textsc{first.fm} bereitgestellt werden.
     
@@ -119,5 +142,5 @@
 
 
 % \section{Ergebnis}
-% \includegraphics[page=1, angle=90,trim=0cm 0cm 1.1cm 1cm, clip=true, scale=1.1]{Diagram1}
+\includegraphics[page=1, angle=90,trim=0cm 0cm 1.1cm 1cm, clip=true, scale=1.1]{Diagramme/Paket Netflax_Neu}
 \end{document}
