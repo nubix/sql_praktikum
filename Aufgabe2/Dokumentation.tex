@@ -46,7 +46,7 @@
   \begin{center}
     \sf{
       \color{blue}{
-        \LARGE{Dokumentation \\ \bigskip Integration Netflax mit First.Fm}
+        \LARGE{Dokumentation \\ \bigskip Integration von Netflax mit First.Fm}
       }
     }
   \end{center}
@@ -67,7 +67,8 @@
 \newpage
 \section{Einleitung}
   \subsection{Allgemeines}
-    Es wurden die Datenbankschemata von \textsc{netflax} und \textsc{first.fm} integriert. Diese Dokumenation zeigt in chronologisch anschaulicher Art und Weise die Probleme und Herausforderungen auf die dabei aufgetreten sind. Am Ende dieser Dokumentation befinden sich die Diagramme, welche das Ergebnis dieser Integration darstellen.
+    Es wurden die Datenbankschemata von \textsc{netflax} und \textsc{first.fm} integriert. Diese Dokumenation zeigt in chronologisch anschaulicher Art und Weise die Probleme und Herausforderungen auf die dabei aufgetreten sind. Bei der Integration verwenden wir die Vorgehensweise der 4 grundlegenden Schritte einer konzeptuellen Integration. Im Verlauf der Integration vergleichen wir die Schemata, achten auf Homo- und Synonyme, sowie auf strukturelle Konflikte, wie Kardinalit\"aten und Schl\"usselattribute. Zur besseren \"Ubersicht haben wir die dazu gekommenen Klassennamen ins Englische \"ubersetzt. 
+  \\\\  Am Ende dieser Dokumentation befinden sich die Diagramme, welche das Ergebnis dieser Integration darstellen.
 
   \subsection{Formatierung} 
     In der Dokumentation sowie im dazugehörigen Diagramm gilt die folgende Formatierung.
@@ -93,7 +94,7 @@
 
 \section{Pre-Integration Analyse}
   Bei der Betrachtung der gegebenen Schemata ist zu erkennen, dass es nur wenige Schnittpunkte gibt. Dies erlaubt eine relativ problemlose Zusammenführung beider Schemata.
-  Bei den vorhandenen Schnittpunkten handelt es sich um folgende.
+  Bei den vorhandenen Schnittpunkten handelt es sich um Folgende:
   \begin{itemize}
     \item[-] \textbf{User} und \textbf{Benutzer}
     \item[-] \textbf{Comment} und \textbf{Kommentare}
@@ -101,11 +102,11 @@
   \end{itemize}
 
 \section{Vergleich der Schemata}
-  Wir werden bei der Integration folgenden Entitäten aufeinander abbilden
+  Wir werden bei der Integration folgenden Entitäten aufeinander abbilden:
   \begin{itemize}
     \item \textbf{Benutzer} auf \textbf{User}. Hierbei handelt es sich um synonyme Entitäten.
     \item \textbf{Kommentare} auf \textbf{Comment}. Diese Entitäten sind teilsynonym, da es sich zwar in jedem Fall um Kommentare handelt, hierbei allerdings unterschiedliche Dinge Kommentiert werden.
-    \item \textbf{Genres} auf \textbf{Genre}. Auch diese Entitäten sind teilsynonym, da es sich in beiden Fällen um Genre handelt, allerdings um Genre von verschiedenen Dingen. Zur Unterscheidung wird ein Diskriminatorattribut (-type) eingeführt werden. 
+    \item \textbf{Genres} auf \textbf{Genre}. Auch diese Entitäten sind teilsynonym, da es sich in beiden Fällen um Genres handelt, allerdings um Genres von verschiedenen Dingen. Zur Unterscheidung wird ein Diskriminatorattribut (-type) eingeführt werden. 
   \end{itemize}
 
   Aufgrund der wenigen Überschneidungen gibt es keinerlei Kardinalitätskonflikte. Allerdings gibt es folgende Primärschlüsselkonflikte.
@@ -115,7 +116,7 @@
     \item[Genres *Bezeichnung / Genre *id] \hfill \\
       Die Identifikation von \textbf{Genres} *Bezeichnung wird auf die Identifikation per \textbf{Genre} *id umgestellt. Ein Surrogatschlüssel ist hier aus Speicherplatzgründen sinnvoll.
     \item[Kommentare / Comment *id] \hfill \\
-      \textbf{Kommentare} bestizt keinen Primärschlüssel, deshalb wird hierfür der Surrogatschlüssel \textbf{Comment} *id übernommen.
+      \textbf{Kommentare} bestizt keinen Primärschlüssel, deshalb wird hier der Surrogatschlüssel \textbf{Comment} *id übernommen.
   \end{description}
   
   % \begin{description}
@@ -128,23 +129,18 @@
   % \end{description}
 
 \section{Angleichung der Schemata}
-// TODO Genauer erklären was verändert und angeglichen wurde. Hierbei auch die Relationentabellen und Kardinalitäten beachten
+ Im Diagramm von \textsc{netflax} der anderen Gruppe haben wir die Klassen \textbf{Filme}, \textbf{Rabattaktion}, \textbf{Kaufvertrag}, \textbf{Leihvertrag}, \textbf{Abonnements}, \textbf{Episoden} und \textbf{Serien} nicht weiter angepasst, au{\ss}er, wie oben in der Einleitung angemerkt, \"ubersetzt. Des Weiteren haben wir die Kardinalit\"aten gleich gelassen. Was unverst\"andlich aus dem Diagramm der anderen Gruppe hervorging war, dass ein Kaufvertrag f\"ur einen Film nur abgeschlossen werden kann, wenn eine Rabattaktion l\"auft. Ansonsten kann ein Film nur ausgeliehen werden. Da die Aufgabe nur darin besteht, beide Diagramme zu integrieren, haben wir das Diagramm der anderen Gruppe f\"ur Szenario A dabei belassen, jedoch sollte es logischerweise auch m\"oglich sein einen Kaufvertrag f\"ur einen Film abzuschlie{\ss}en ohne dass eine Rabattaktion l\"auft.
   \subsection{Genre} 
-    Die Klasse \textbf{Genre} wurde um das Disrkiminatorattribut -type ergänzt, welches durch einen numerischen Wert angibt, ob es sich dabei um ein Musik- oder Filmgenre handelt. Im \textsc{netflix} Schema wurden die Genre durch einen Namen identifiziert, diese Identifikation soll nun der durch einen Surrogatschlüssel angelichen werden.
+    Die Klasse \textbf{Genre} wurde um das Diskriminatorattribut -type ergänzt, welches durch einen numerischen Wert angibt, ob es sich dabei um ein Musik- oder Filmgenre handelt. Im \textsc{netflix}-Schema wurden die Genres durch einen Namen (*Bezeichnung) identifiziert, diese Identifikation soll nun durch einen Surrogatschlüssel  (*genre\_id) \"ubernommen werden.
   \subsection{Comment}
-    Die Klasse \textbf{Comment} wurde um das Attribut -update ergängzt. Hiermit wird der Anforderung Sorge getragen, dass auch der eventuelle Änderungszeitpunkt eines Kommentars zeitlich gespeichert werden soll. Dies kann nun als neues Feature auch der Userbase von \textsc{first.fm} bereitgestellt werden.
-    
+    Die Klasse \textbf{Comment} wurde um das Attribut (-update) ergänzt. Hiermit wird der Anforderung Sorge getragen, dass auch der eventuelle Änderungszeitpunkt eines Kommentars zeitlich gespeichert werden soll. Dies wird nun als neues Feature auch auf der Userbase von \textsc{first.fm} bereitgestellt.    
   \subsection{User}
-    Das Klassendiagramm von \textsc{netflax} sieht vor, dass für Leih- und Kaufverträge Name, Adresse und Kreditkartennummer des Vertragspartners (\textbf{Benutzer}) gespeichert wird. Für die Zusammenführung war es notwendig dies als optionale Attribute zu \textbf{User} hinzuzufügen.
-
-
-
+    Das Klassendiagramm von \textsc{netflax} sieht vor, dass für Leih- (\textbf{LoanContract}) und Kaufverträge (\textbf{SalesContract}) Name, Adresse und Kreditkartennummer (-cc\_number) des Vertragspartners (\textbf{Benutzer}) gespeichert wird. Für die Zusammenführung war es notwendig dies als optionale Attribute zu \textbf{User} hinzuzufügen.
 \section{Zusammenführung und Restrukturierung}
-  Der Übersichtlichkeit halber wurde das Diagramm in die beiden Pakete \textsc{netflax} und \textsc{first.fm} eingeteilt. Die Überschneidungen sind durch die die selben Klassennamen gekennzeichnen.
-
-  \subsection{Diagramm - Paket \textsc{first.fm}}
-    \includegraphics[angle=90,trim=1cm 0cm 1.1cm 1cm, clip=true, scale=0.99]{Diagramme/Paket_FirstFm}
-
-  \subsection{Diagramm - Paket \textsc{netflax}}
-    \includegraphics[angle=90,trim=0cm 0cm 1.1cm 1cm, clip=true, scale=1]{Diagramme/Paket_Netflax}
-\end{document}
+  Der Übersichtlichkeit und der Konsistenz der Struktur des Diagramms halber wurde das Diagramm in die beiden Pakete \textsc{netflax} und \textsc{first.fm} eingeteilt. Die Überschneidungen sind durch die die selben Klassennamen gekennzeichnen.
+  Wir haben also ein Diagramm zur Beschreibung, dass User sich mit Musik, Bands, Alben, sowie das Kommentieren und das Bewerten dieser besch\"aftigen k\"onnen (und / oder) Filme (ausleihen / kaufen), Episoden kommentieren, Serien bewerten etc.. Die Schnittstellen sind wie angemerkt die Klasse \textbf{User}, \textbf{Comment} und \textbf{Genre}.
+\subsection{Diagramm - Paket \textsc{first.fm}}
+     \includegraphics[angle=90,trim=1cm 0cm 1.1cm 1cm, clip=true, scale=0.99]{Diagramme/Paket_FirstFm}
+\subsection{Diagramm - Paket \textsc{netflax}}
+     \includegraphics[angle=90,trim=0cm 0cm 1.1cm 1cm, clip=true, scale=1]{Diagramme/Paket_Netflax}
+ \end{document}
