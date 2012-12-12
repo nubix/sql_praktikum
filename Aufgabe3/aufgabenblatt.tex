@@ -67,56 +67,21 @@
 
 \begin{document}
 \makehomeworktitle
-\aufgabe{1}
- Person(\underline{id}, name
-  \aufgabe{2}
-Express following statements in \textbf{natural} language:
- \begin{enumerate}[a)]
-   \item 
-   $ 
-   \{\, per \, | \, \exists mov, year ( 
-   $ 
-   \\ 
-   $
-   Movie(mov, ``The \, Power \, of \, Projection``, year) \,  \wedge \, 
-   $ 
-   \\ 
-   $
-   actor(per,mov, ``forest \, ranger``) 
-   $ 
-   \\ 
-   $
-   ) \} \backslash \{ \,per \, | \, \exists mov, r(actor(per, mov, r) |, \wedge \, hasGenre(mov, ``comedy``))\}
-   $
-   \item 
-   $
-   \{p.name \, | \, Person(p) \, \wedge \, \forall a( 
-   $
-   \\ 
-   $ 
-   (actor(a) \, \wedge \, a.person=p.id) \, \rightarrow \, ( 
-   $
-   \\
-   $
-   \exists hg(hasGenre(hg) \, \wedge \, a.movie=hg.movie \, \wedge \, hg.genre=``drama``)
-   $
-   \\
-   $ 
-   )
-   $
-   \\
-   $
-   ) \}
-   $
- \end{enumerate}
+  \aufgabe{1}
+   Entry(\underline{id}, production\_year, type $ \rightarrow $ Type) \\
+   Person(\underline{id}, name) \\
+   Type(\underline{id}, name, description) \\
+   Task(\underline{id}, name) \\
+   participates(
+   \aufgabe{2}
 \aufgabe{3}
-\begin{enumerate}[a)]
- \item What are unsafe queries and how can you avoid them? \\
- Unsichere Abfragen sind Abfragen die m\"oglicherweise eine unbegrenzte Anzahl von Tupeln zur\"uckgeben. Vermeiden lassen sich unsichere Abfragen nur durch die sogenannte ``Geschlossene-Welt-Annahme``. Diese Annahme begrenzt die Tupel die f\"ur Tupelvariablen ersetzt werden k\"onnen auf die, die in den aktuell betrachteten Relationen auch wirklich vorkommen.
- \item What is relational completeness? \\
- Es gibt drei Abfrageparadigmen: Relationale Algebra, Tupelbezogenes, relationales Kalk\"ul und Dom\"anenbezogene, relationales Kalk\"ul. Eine Abfrage die in einem der drei Kalk\"ule formuliert wurde, kann auch in jedes der drei Kalk\"ule umgewandelt werden. Diese Eigenschaft nennt man relational komplett. Jede andere Abfragesprache die in eine von den drei Kalk\"ulen abgebildet werden kann ist ebenfalls relational komplett.
- \item What is the difference between a formula and an atom? \\
- Eine Formel besteht aus mindestens einem Atom. Ein Atom ist automatisch auch eine Formel, jedoch kann eine Formel auch aus mehreren Atomen und Operatoren bestehen.
+\begin{enumerate}[\textbf{Anfrage} 1:]
+\item Finde den \textit{title} und \textit{type} aller \textit{Movies} seit 2004.
+\item Finde die Name aller \textit{Actors} (und \textit{Actresses}), die in mindestens einem der Filme aus Anfrage 1 mitgespielt haben. Gib jeden Namen nur einmal aus!
+\item Finde heraus, wie viele \textit{Movies} es seit 2004 gegeben hat (die Anzahl)!
+\item Finde die maximale und durchschnittliche Anzahl von \textit{Movies}, in denen \textit{Actors} (und \textit{Actresses}) seit 2004 mitgespielt haben. \textit{Actors} (und \textit{Actresses}), die nur in einem \textit{Movie} mitgespielt haben, sollen nicht mit betrachtet werden!
+\item Finde die \textit{names} aller \textit{Actors} (und \textit{Actresses}), die in mindestens 30 \textit{Movies} (nicht \textit{Serien}) seit 2004 mitgespielt haben und die Anzahl der \textit{Movies} in denen sie mitgespielt haben, absteigend sortiert nach der Anzahl der \textit{title} und ihre \textit{names} in alphabetischer Reihenfolge.
+
 \end{enumerate}
 \end{document}
 
