@@ -92,23 +92,23 @@
    \item \textbf{Entry} \\
    \begin{lstlisting}
    CREATE TABLE Entry (
-   	id INT(4), 
-    	production_year DATE 
-    	type INT(4)
+   	id INTEGER, 
+    	production_year DATE,
+    	type INTEGER REFERENCES Type
    )
     \end{lstlisting}
     \item \textbf{Person} \\
     \begin{lstlisting}
     CREATE TABLE Person (
-    	id INT(4), 
+    	id INTEGER, 
     	name VARCHAR(255), 
-    	task INT(4)
+    	task INTEGER REFERENCES Task
     ) 
     \end{lstlisting}
     \item \textbf{Type} \\
     \begin{lstlisting}
     CREATE TABLE Type (
-    	id INT(4), 
+    	id INTEGER, 
     	name VARCHAR(255), 
     	description VARCHAR(255)
     ) 
@@ -116,10 +116,18 @@
     \item \textbf{Task} \\
     \begin{lstlisting}
     CREATE TABLE Task (
-    	id INT(4), 
+    	id INTEGER, 
     	name VARCHAR(255)
     ) 
     \end{lstlisting}
+    \item \textbf{participates} \\
+    \begin{lstlisting}
+    	CREATE TABLE participates (
+		id INTEGER NOT NULL REFERENCES Person,
+		id INTEGER NOT NULL REFERENCES Task,
+		name VARCHAR(255) REFERENCES Task
+	)
+    \end{lstlisting}	
     \end{enumerate}
 \aufgabe{3}
 \begin{enumerate}[\textbf{Anfrage} 1:]
@@ -148,5 +156,9 @@ AND TITLE_TYPE='film';
 \end{lstlisting}
 \item Finde die \textit{names} aller \textit{Actors} (und \textit{Actresses}), die in mindestens 30 \textit{Movies} (nicht \textit{Serien}) seit 2004 mitgespielt haben und die Anzahl der \textit{Movies} in denen sie mitgespielt haben, absteigend sortiert nach der Anzahl der \textit{title} und ihre \textit{names} in alphabetischer Reihenfolge.
 \end{enumerate}
+\aufgabe{4}
+\begin{lstlisting}
+  INSERT INTO
+\end{lstlisting}
 \end{document}
 
