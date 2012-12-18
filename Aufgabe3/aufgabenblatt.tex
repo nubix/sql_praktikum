@@ -124,8 +124,8 @@ CREATE TABLE Task (
     \item \textbf{participates} \\
 \begin{lstlisting}
 CREATE TABLE participates (
-  id INTEGER NOT NULL REFERENCES Person,
-  id INTEGER NOT NULL REFERENCES Task,
+  id VARCHAR(400) NOT NULL REFERENCES Person,
+  id VARCHAR(400) NOT NULL REFERENCES Task,
   name VARCHAR(400) REFERENCES Task
 );
 \end{lstlisting}	
@@ -138,7 +138,7 @@ CREATE TABLE participates (
 \begin{lstlisting} 
 SELECT TITLE_TITLE, TITLE_TYPE
 FROM IMDB.MOVIES
-WHERE TITLE_YEAR >= '2004';
+WHERE TITLE_YEAR >= 2004;
 \end{lstlisting}
 
 \item Finde die Name aller \textit{Actors} (und \textit{Actresses}), die in mindestens einem der Filme aus Anfrage 1 mitgespielt haben. Gib jeden Namen nur einmal aus!
@@ -146,15 +146,15 @@ WHERE TITLE_YEAR >= '2004';
 SELECT DISTINCT NAME_NAME
 FROM IMDB.ACTORS a, IMDB.MOVIES m
 WHERE a.TITLE_ID = m.TITLE_ID
-AND m.TITLE_YEAR >='2004';
+AND m.TITLE_YEAR >= 2004;
 \end{lstlisting}
 
 \item Finde heraus, wie viele \textit{Movies} es seit 2004 gegeben hat (die Anzahl)!
 \begin{lstlisting}
 SELECT COUNT(*)
 FROM IMDB.MOVIES
-WHERE TITLE_YEAR >='2004'
-AND TITLE_TYPE='film';
+WHERE TITLE_YEAR >= 2004
+AND TITLE_TYPE = 'film';
 \end{lstlisting}
 
 \item Finde die maximale und durchschnittliche Anzahl von \textit{Movies}, in denen \textit{Actors} (und \textit{Actresses}) seit 2004 mitgespielt haben. \textit{Actors} (und \textit{Actresses}), die nur in einem \textit{Movie} mitgespielt haben, sollen nicht mit betrachtet werden!
