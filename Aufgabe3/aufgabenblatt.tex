@@ -83,50 +83,57 @@
 \makehomeworktitle
   \aufgabe{1}
    Entry(\underline{id}, name, production\_year, type $ \rightarrow $ Type) \\
-   Person(\underline{id}, name, task $ \rightarrow $ Task) \\
+   Person(\underline{id}, name) \\
    Type(\underline{id}, name, description) \\
    Task(\underline{id}, name) \\
-   participates(person $ \rightarrow $ Person, task $ \rightarrow $ Task, Name) \\\\
+   participates(\underline{person} $ \rightarrow $ Person,
+   \underline{task} $ \rightarrow $ Task,
+   \underline{entry} $\rightarrow$ Entry) \\\\
    \aufgabe{2}
    \begin{enumerate}
    \item \textbf{Entry} \\
 \begin{lstlisting}
 CREATE TABLE Entry (
-  id VARCHAR(400),
+  id VARCHAR(400) NOT NULL,
   name VARCHAR(400),
   production_year INTEGER,
-  type VARCHAR(10) REFERENCES Type
+  type VARCHAR(10) REFERENCES Type(id),
+  PRIMARY KEY(id)
 );
 \end{lstlisting}
     \item \textbf{Person} \\
 \begin{lstlisting}
 CREATE TABLE Person (
-  id VARCHAR(400), 
+  id VARCHAR(400) NOT NULL, 
   name VARCHAR(400), 
-  task INTEGER REFERENCES Task
+  task INTEGER REFERENCES Task(id),
+  PRIMARY KEY(id)
 );
     \end{lstlisting}
     \item \textbf{Type} \\
 \begin{lstlisting}
 CREATE TABLE Type (
-  id VARCHAR(400), 
+  id VARCHAR(400) NOT NULL, 
   name VARCHAR(400), 
-  description VARCHAR(400)
+  description VARCHAR(400),
+  PRIMARY KEY(id)
 );
 \end{lstlisting}
     \item \textbf{Task} \\
 \begin{lstlisting}
 CREATE TABLE Task (
-  id INTEGER, 
-  name VARCHAR(400)
+  id INTEGER NOT NULL, 
+  name VARCHAR(400),
+  PRIMARY KEY(id)
 );
 \end{lstlisting}
     \item \textbf{participates} \\
 \begin{lstlisting}
 CREATE TABLE participates (
-  id VARCHAR(400) NOT NULL REFERENCES Person,
-  id INTEGER NOT NULL REFERENCES Task,
-  name VARCHAR(400) REFERENCES Task
+  person VARCHAR(400) NOT NULL REFERENCES Person(id),
+  task INTEGER NOT NULL REFERENCES Task(id),
+  entry VARCHAR(400) NOT NULL REFERENCES Entry(id),
+  PRIMARY KEY(person, task, entry);
 );
 \end{lstlisting}	
     \end{enumerate}
@@ -144,8 +151,11 @@ WHERE TITLE_YEAR >= 2004;
 \item Finde die Name aller \textit{Actors} (und \textit{Actresses}), die in mindestens einem der Filme aus Anfrage 1 mitgespielt haben. Gib jeden Namen nur einmal aus!
 \begin{lstlisting}
 SELECT DISTINCT NAME_NAME
-FROM IMDB.ACTORS a, IMDB.MOVIES m
-WHERE a.TITLE_ID = m.TITLE_ID
+FROM IMDB.ACTORS a, IMDB.MOVIES m WHERE a.TITLE_ID = m.TITLE_ID
+AND m.TITLE_YEAR >= 2004
+UNION
+SELECT DISTINCT NAME_NAME
+FROM IMDB.ACTRESSES a, IMDB.MOVIES m WHERE a.TITLE_ID = m.TITLE_ID
 AND m.TITLE_YEAR >= 2004;
 \end{lstlisting}
 
@@ -159,6 +169,9 @@ AND TITLE_TYPE = 'film';
 
 \item Finde die maximale und durchschnittliche Anzahl von \textit{Movies}, in denen \textit{Actors} (und \textit{Actresses}) seit 2004 mitgespielt haben. \textit{Actors} (und \textit{Actresses}), die nur in einem \textit{Movie} mitgespielt haben, sollen nicht mit betrachtet werden!
 \begin{lstlisting}
+
+...
+
 \end{lstlisting}
 
 \item Finde die \textit{names} aller \textit{Actors} (und \textit{Actresses}), die in mindestens 30 \textit{Movies} (nicht \textit{Serien}) seit 2004 mitgespielt haben und die Anzahl der \textit{Movies} in denen sie mitgespielt haben, absteigend sortiert nach der Anzahl der \textit{title} und ihre \textit{names} in alphabetischer Reihenfolge.
