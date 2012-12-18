@@ -86,7 +86,7 @@
    Person(\underline{id}, name, task $ \rightarrow $ Task) \\
    Type(\underline{id}, name, description) \\
    Task(\underline{id}, name) \\
-   participates(person $ \rightarrow $ Person, task $ \rightarrow $ Task, Name)
+   participates(person $ \rightarrow $ Person, task $ \rightarrow $ Task, Name) \\\\
    \aufgabe{2}
    \begin{enumerate}
    \item \textbf{Entry} \\
@@ -168,10 +168,19 @@ AND TITLE_TYPE='film';
 
 \aufgabe{4}
 \begin{lstlisting}
-INSERT INTO Entry (Name, production_year, type)
+INSERT INTO Entry (name, production_year, type)
 VALUES
-  SELECT x AS Name, y AS production_year, z AS type
-  FROM blah;
+  SELECT name AS x, production_year AS y, typeAS z
+  FROM Entry
+  WHERE y = '2001';
+INSERT INTO Person (name, task)
+VALUES
+   SELECT name AS a, task AS b
+   FROM 
+INSERT INTO Task (name)
+VALUES
+    SELECT name AS c
+    FROM 
 \end{lstlisting}
 \end{document}
 
