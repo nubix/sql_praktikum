@@ -237,7 +237,7 @@ VALUES  (1, 'Actor'),
         (9, 'Editor');
 
 INSERT INTO DBLAB01.Person (id, name)
-   (SELECT a.NAME_ID, a.NAME_NAME
+   (SELECT DISTINCT a.NAME_ID, a.NAME_NAME
    FROM IMDB.ACTORS a, DBLAB01.Entry
    WHERE a.TITLE_ID = Entry.id);
 INSERT INTO participates (person, task, entry)
@@ -246,7 +246,7 @@ INSERT INTO participates (person, task, entry)
    WHERE TITLE_ID = Entry.id);
 
 INSERT INTO DBLAB01.Person (id, name)
-   (SELECT a.NAME_ID, a.NAME_NAME
+   (SELECT DISTINCT a.NAME_ID, a.NAME_NAME
    FROM IMDB.ACTRESSES a, DBLAB01.Entry
    WHERE a.TITLE_ID = Entry.id);
 INSERT INTO participates (person, task, entry)
@@ -255,7 +255,7 @@ INSERT INTO participates (person, task, entry)
    WHERE TITLE_ID = Entry.id);
 
 INSERT INTO DBLAB01.Person (id, name)
-   (SELECT a.NAME_ID, a.NAME_NAME
+   (SELECT DISTINCT a.NAME_ID, a.NAME_NAME
    FROM IMDB.WRITERS a, DBLAB01.Entry
    WHERE a.TITLE_ID = Entry.id);
 INSERT INTO participates (person, task, entry)
@@ -264,7 +264,7 @@ INSERT INTO participates (person, task, entry)
    WHERE TITLE_ID = Entry.id);
 
 INSERT INTO DBLAB01.Person (id, name)
-   (SELECT a.NAME_ID, a.NAME_NAME
+   (SELECT DISTINCT a.NAME_ID, a.NAME_NAME
    FROM IMDB.DIRECTORS a, DBLAB01.Entry
    WHERE a.TITLE_ID = Entry.id);
 INSERT INTO participates (person, task, entry)
@@ -273,7 +273,7 @@ INSERT INTO participates (person, task, entry)
    WHERE TITLE_ID = Entry.id);
 
 INSERT INTO DBLAB01.Person (id, name)
-   (SELECT a.NAME_ID, a.NAME_NAME
+   (SELECT DISTINCT a.NAME_ID, a.NAME_NAME
    FROM IMDB.CINEMATOGRAPHERS a, DBLAB01.Entry
    WHERE a.TITLE_ID = Entry.id);
 INSERT INTO participates (person, task, entry)
@@ -282,7 +282,7 @@ INSERT INTO participates (person, task, entry)
    WHERE TITLE_ID = Entry.id);
 
 INSERT INTO DBLAB01.Person (id, name)
-   (SELECT a.NAME_ID, a.NAME_NAME
+   (SELECT DISTINCT a.NAME_ID, a.NAME_NAME
    FROM IMDB.COMPOSERS a, DBLAB01.Entry
    WHERE a.TITLE_ID = Entry.id);
 INSERT INTO participates (person, task, entry) 
@@ -291,7 +291,7 @@ INSERT INTO participates (person, task, entry)
    WHERE TITLE_ID = Entry.id);
 
 INSERT INTO DBLAB01.Person (id, name)
-   (SELECT a.NAME_ID, a.NAME_NAME
+   (SELECT DISTINCT a.NAME_ID, a.NAME_NAME
    FROM IMDB.COSTUME_DESIGNERS a, DBLAB01.Entry
    WHERE a.TITLE_ID = Entry.id);
 INSERT INTO participates (person, task, entry)
@@ -300,7 +300,7 @@ INSERT INTO participates (person, task, entry)
    WHERE TITLE_ID = Entry.id);
 
 INSERT INTO DBLAB01.Person (id, name)
-   (SELECT a.NAME_ID, a.NAME_NAME
+   (SELECT DISTINCT a.NAME_ID, a.NAME_NAME
    FROM IMDB.PRODUCERS a, DBLAB01.Entry
    WHERE a.TITLE_ID = Entry.id);
 INSERT INTO participates (person, task, entry)
@@ -309,7 +309,7 @@ INSERT INTO participates (person, task, entry)
    WHERE TITLE_ID = Entry.id);
 
 INSERT INTO DBLAB01.Person (id, name)
-   (SELECT a.NAME_ID, a.NAME_NAME
+   (SELECT DISTINCT a.NAME_ID, a.NAME_NAME
    FROM IMDB.EDITORS a, DBLAB01.Entry
    WHERE a.TITLE_ID = Entry.id);
 INSERT INTO participates (person, task, entry)
