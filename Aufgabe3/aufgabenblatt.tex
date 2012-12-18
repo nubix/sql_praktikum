@@ -177,6 +177,8 @@ VALUES
   FROM IMDB.MOVIES
   WHERE TITLE_YEAR = 2001;
 
+
+
 INSERT INTO Person (name, task)
 VALUES
    SELECT a AS name, b AS task
@@ -184,9 +186,15 @@ VALUES
    WHERE
 
 INSERT INTO Task (name)
-VALUES
-    SELECT c AS name
-    FROM 
+VALUES ("Actor",
+        "Actress",
+        "Writer",
+        "Director",
+        "Cinematographer",
+        "Composer",
+        "Costume_Designer",
+        "Producer",
+        "Editor")
 \end{lstlisting}
 \end{document}
 
