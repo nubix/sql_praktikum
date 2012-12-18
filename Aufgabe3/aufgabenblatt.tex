@@ -143,7 +143,7 @@ CREATE TABLE participates (
     \end{enumerate}
 \aufgabe{3}
 
-\begin{enumerate}[\textbf{Anfrage} 1:]
+\begin{enumerate}[\textbf{Abfrage} 1:]
 
 \item Finde den \textit{title} und \textit{type} aller \textit{Movies} seit 2004. 
 \begin{lstlisting} 
@@ -174,9 +174,11 @@ AND TITLE_TYPE = 'film';
 \item Finde die maximale und durchschnittliche Anzahl von \textit{Movies}, in denen \textit{Actors} (und \textit{Actresses}) seit 2004 mitgespielt haben. \textit{Actors} (und \textit{Actresses}), die nur in einem \textit{Movie} mitgespielt haben, sollen nicht mit betrachtet werden!
 \begin{lstlisting}
 WITH
- 	Avrg AS (
-		SELECT AVG(COUNT(*)) AS average 
-		FROM IMDB.MOVIES WHERE m.TITLE)
+   Avrg AS (
+	SELECT AVG(COUNT(*)) AS average 
+	FROM IMDB.MOVIES 
+	WHERE m.TITLE = a.TITLE		
+	AND m.TITLE_YEAR >= 2004)
 (SELECT MAX(c.Count) AS max
 FROM IMDB.MOVIES m,
   	 IMDB.ACTORS a,
