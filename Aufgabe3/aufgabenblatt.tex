@@ -117,7 +117,7 @@ CREATE TABLE Type (
     \item \textbf{Task} \\
 \begin{lstlisting}
 CREATE TABLE Task (
-  id VARCHAR(400), 
+  id INTEGER, 
   name VARCHAR(400)
 );
 \end{lstlisting}
@@ -125,7 +125,7 @@ CREATE TABLE Task (
 \begin{lstlisting}
 CREATE TABLE participates (
   id VARCHAR(400) NOT NULL REFERENCES Person,
-  id VARCHAR(400) NOT NULL REFERENCES Task,
+  id INTEGER NOT NULL REFERENCES Task,
   name VARCHAR(400) REFERENCES Task
 );
 \end{lstlisting}	
@@ -185,16 +185,17 @@ VALUES
    FROM Person, Task
    WHERE
 
-INSERT INTO Task (name)
-VALUES ("Actor",
-        "Actress",
-        "Writer",
-        "Director",
-        "Cinematographer",
-        "Composer",
-        "Costume_Designer",
-        "Producer",
-        "Editor")
+
+INSERT INTO Task (id, name)
+VALUES  (1, 'Actor'),
+        (2, 'Actress'),
+        (3, 'Writer'),
+        (4, 'Director'),
+        (5, 'Cinematographer'),
+        (6, 'Composer'),
+        (7, 'Costume_Designer'),
+        (8, 'Producer'),
+        (9, 'Editor');
 \end{lstlisting}
 \end{document}
 
