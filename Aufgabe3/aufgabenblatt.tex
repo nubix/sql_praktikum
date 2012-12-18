@@ -96,7 +96,7 @@ CREATE TABLE Entry (
   name VARCHAR(255),
   production_year DATE,
   type INTEGER REFERENCES Type
-)
+);
 \end{lstlisting}
     \item \textbf{Person} \\
 \begin{lstlisting}
@@ -104,7 +104,7 @@ CREATE TABLE Person (
   id INTEGER, 
   name VARCHAR(255), 
   task INTEGER REFERENCES Task
-) 
+);
     \end{lstlisting}
     \item \textbf{Type} \\
 \begin{lstlisting}
@@ -112,14 +112,14 @@ CREATE TABLE Type (
   id INTEGER, 
   name VARCHAR(255), 
   description VARCHAR(255)
-) 
+);
 \end{lstlisting}
     \item \textbf{Task} \\
 \begin{lstlisting}
 CREATE TABLE Task (
   id INTEGER, 
   name VARCHAR(255)
-) 
+);
 \end{lstlisting}
     \item \textbf{participates} \\
 \begin{lstlisting}
@@ -127,7 +127,7 @@ CREATE TABLE participates (
   id INTEGER NOT NULL REFERENCES Person,
   id INTEGER NOT NULL REFERENCES Task,
   name VARCHAR(255) REFERENCES Task
-)
+);
 \end{lstlisting}	
     \end{enumerate}
 \aufgabe{3}
@@ -168,7 +168,10 @@ AND TITLE_TYPE='film';
 
 \aufgabe{4}
 \begin{lstlisting}
-INSERT INTO Entry (Name, production_year)
+INSERT INTO Entry (Name, production_year, type)
+VALUES
+  SELECT x AS Name, y AS production_year, z AS type
+  FROM blah;
 \end{lstlisting}
 \end{document}
 
