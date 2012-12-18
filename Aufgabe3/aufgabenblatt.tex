@@ -92,6 +92,7 @@
    \aufgabe{2}
    \begin{enumerate}
    \item \textbf{Entry} \\
+   % funktioniert!
 \begin{lstlisting}
 CREATE TABLE Entry (
   id VARCHAR(400) NOT NULL,
@@ -102,6 +103,7 @@ CREATE TABLE Entry (
 );
 \end{lstlisting}
     \item \textbf{Person} \\
+    % Funktioniert!
 \begin{lstlisting}
 CREATE TABLE Person (
   id VARCHAR(400) NOT NULL, 
@@ -111,6 +113,7 @@ CREATE TABLE Person (
 );
     \end{lstlisting}
     \item \textbf{Type} \\
+    % Funktioniert !
 \begin{lstlisting}
 CREATE TABLE Type (
   id VARCHAR(400) NOT NULL, 
@@ -120,6 +123,7 @@ CREATE TABLE Type (
 );
 \end{lstlisting}
     \item \textbf{Task} \\
+    % Funktioniert ! 
 \begin{lstlisting}
 CREATE TABLE Task (
   id INTEGER NOT NULL, 
@@ -128,12 +132,13 @@ CREATE TABLE Task (
 );
 \end{lstlisting}
     \item \textbf{participates} \\
+    % Funktioniert !
 \begin{lstlisting}
 CREATE TABLE participates (
   person VARCHAR(400) NOT NULL REFERENCES Person(id),
   task INTEGER NOT NULL REFERENCES Task(id),
   entry VARCHAR(400) NOT NULL REFERENCES Entry(id),
-  PRIMARY KEY(person, task, entry);
+  PRIMARY KEY(person, task, entry)
 );
 \end{lstlisting}	
     \end{enumerate}
