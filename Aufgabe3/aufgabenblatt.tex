@@ -92,33 +92,33 @@
    \item \textbf{Entry} \\
 \begin{lstlisting}
 CREATE TABLE Entry (
-  id INTEGER,
-  name VARCHAR(255),
-  production_year DATE,
-  type INTEGER REFERENCES Type
+  id VARCHAR(400),
+  name VARCHAR(400),
+  production_year INTEGER,
+  type VARCHAR(10) REFERENCES Type
 );
 \end{lstlisting}
     \item \textbf{Person} \\
 \begin{lstlisting}
 CREATE TABLE Person (
-  id INTEGER, 
-  name VARCHAR(255), 
+  id VARCHAR(400), 
+  name VARCHAR(400), 
   task INTEGER REFERENCES Task
 );
     \end{lstlisting}
     \item \textbf{Type} \\
 \begin{lstlisting}
 CREATE TABLE Type (
-  id INTEGER, 
-  name VARCHAR(255), 
-  description VARCHAR(255)
+  id VARCHAR(400), 
+  name VARCHAR(400), 
+  description VARCHAR(400)
 );
 \end{lstlisting}
     \item \textbf{Task} \\
 \begin{lstlisting}
 CREATE TABLE Task (
-  id INTEGER, 
-  name VARCHAR(255)
+  id VARCHAR(400), 
+  name VARCHAR(400)
 );
 \end{lstlisting}
     \item \textbf{participates} \\
@@ -126,7 +126,7 @@ CREATE TABLE Task (
 CREATE TABLE participates (
   id INTEGER NOT NULL REFERENCES Person,
   id INTEGER NOT NULL REFERENCES Task,
-  name VARCHAR(255) REFERENCES Task
+  name VARCHAR(400) REFERENCES Task
 );
 \end{lstlisting}	
     \end{enumerate}
@@ -168,16 +168,21 @@ AND TITLE_TYPE='film';
 
 \aufgabe{4}
 \begin{lstlisting}
-INSERT INTO Entry (name, production_year, type)
+INSERT INTO Entry (id, name, production_year, type)
 VALUES
-  SELECT TITLE_TITLE AS name, TITLE_YEAR AS production_year, TITLE_TYPE AS type
-  FROM Entry
-  WHERE production_year = '2001';
+  SELECT TITLE_ID AS id,
+         TITLE_TITLE AS name,
+         TITLE_YEAR AS production_year,
+         TITLE_TYPE AS type
+  FROM IMDB.MOVIES
+  WHERE TITLE_YEAR = 2001;
+
 INSERT INTO Person (name, task)
 VALUES
    SELECT a AS name, b AS task
    FROM Person, Task
    WHERE
+
 INSERT INTO Task (name)
 VALUES
     SELECT c AS name
