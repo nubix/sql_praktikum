@@ -169,9 +169,15 @@ AND TITLE_TYPE = 'film';
 
 \item Finde die maximale und durchschnittliche Anzahl von \textit{Movies}, in denen \textit{Actors} (und \textit{Actresses}) seit 2004 mitgespielt haben. \textit{Actors} (und \textit{Actresses}), die nur in einem \textit{Movie} mitgespielt haben, sollen nicht mit betrachtet werden!
 \begin{lstlisting}
-
-...
-
+SELECT COUNT(MAX(*)) AS MaxCount, COUNT(AVG(*)) AS AvgCount
+FROM IMDB.MOVIES AS m, IMDB.ACTORS AS a
+WHERE m.TITLE_ID = a.TITLE_ID
+AND TITLE_YEAR >= 2004
+UNION
+SELECT COUNT(MAX(*)) AS MaxCount, COUNT(AVG(*)) AS AvgCount
+FROM IMDB.MOVIES AS m, IMDB.ACTRESSES AS a
+WHERE m.TITLE_ID = a.TITLE_ID
+AND TITLE_YEAR >= 2004;
 \end{lstlisting}
 
 \item Finde die \textit{names} aller \textit{Actors} (und \textit{Actresses}), die in mindestens 30 \textit{Movies} (nicht \textit{Serien}) seit 2004 mitgespielt haben und die Anzahl der \textit{Movies} in denen sie mitgespielt haben, absteigend sortiert nach der Anzahl der \textit{title} und ihre \textit{names} in alphabetischer Reihenfolge.
