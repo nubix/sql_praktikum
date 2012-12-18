@@ -285,7 +285,7 @@ INSERT INTO DBLAB01.Person (id, name)
    (SELECT a.NAME_ID, a.NAME_NAME
    FROM IMDB.COMPOSERS a, DBLAB01.Entry
    WHERE a.TITLE_ID = Entry.id);
-INSERT INTO participates (person, task, entry)
+INSERT INTO participates (person, task, entry) 
    (SELECT NAME_NAME, 6, TITLE_ID
    FROM IMDB.COMPOSERS, Entry
    WHERE TITLE_ID = Entry.id);
