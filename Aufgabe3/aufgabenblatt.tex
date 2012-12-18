@@ -116,7 +116,7 @@ CREATE TABLE Person (
     % Funktioniert !
 \begin{lstlisting}
 CREATE TABLE Type (
-  id VARCHAR(400) NOT NULL, 
+  id VARCHAR(10) NOT NULL, 
   name VARCHAR(400), 
   description VARCHAR(400),
   PRIMARY KEY(id)
@@ -203,14 +203,22 @@ SELECT MAX(Count) max, (AVG(Count) avg FROM
 
 \aufgabe{4}
 \begin{lstlisting}
+
+
+
+INSERT INTO Type (id, name)
+VALUES ('film', 'Ein Film');
+
 INSERT INTO Entry (id, name, production_year, type)
-VALUES
-  SELECT TITLE_ID AS id,
-         TITLE_TITLE AS name,
-         TITLE_YEAR AS production_year,
-         TITLE_TYPE AS type
+ (SELECT TITLE_ID,
+         TITLE_TITLE,
+         TITLE_YEAR,
+         TITLE_TYPE
   FROM IMDB.MOVIES
-  WHERE TITLE_YEAR = 2001;
+  WHERE TITLE_YEAR = 2001
+  AND   TITLE_TYPE = 'film');
+
+
 
 
 
