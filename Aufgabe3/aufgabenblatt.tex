@@ -108,7 +108,6 @@ CREATE TABLE Entry (
 CREATE TABLE Person (
   id VARCHAR(400) NOT NULL, 
   name VARCHAR(400), 
-  task INTEGER REFERENCES Task(id),
   PRIMARY KEY(id)
 );
     \end{lstlisting}
@@ -138,7 +137,7 @@ CREATE TABLE participates (
   person VARCHAR(400) NOT NULL REFERENCES Person(id),
   task INTEGER NOT NULL REFERENCES Task(id),
   entry VARCHAR(400) NOT NULL REFERENCES Entry(id),
-  PRIMARY KEY(person, task, entry)
+  PRIMARY KEY(person, entry, task)
 );
 \end{lstlisting}	
     \end{enumerate}
@@ -226,17 +225,6 @@ INSERT INTO Entry (id, name, production_year, type)
   WHERE TITLE_YEAR = 2001
   AND   TITLE_TYPE = 'film');
 
-
-
-
-
-INSERT INTO Person (name, task)
-VALUES
-   SELECT a AS name, b AS task
-   FROM Person, Task
-   WHERE
-
-
 INSERT INTO Task (id, name)
 VALUES  (1, 'Actor'),
         (2, 'Actress'),
@@ -247,6 +235,87 @@ VALUES  (1, 'Actor'),
         (7, 'Costume_Designer'),
         (8, 'Producer'),
         (9, 'Editor');
+
+INSERT INTO DBLAB01.Person (id, name)
+   (SELECT a.NAME_ID, a.NAME_NAME
+   FROM IMDB.ACTORS a, DBLAB01.Entry
+   WHERE a.TITLE_ID = Entry.id);
+INSERT INTO participates (person, task, entry)
+   (SELECT NAME_NAME, 1, TITLE_ID
+   FROM IMDB.ACTORS, Entry
+   WHERE TITLE_ID = Entry.id);
+
+INSERT INTO DBLAB01.Person (id, name)
+   (SELECT a.NAME_ID, a.NAME_NAME
+   FROM IMDB.ACTRESSES a, DBLAB01.Entry
+   WHERE a.TITLE_ID = Entry.id);
+INSERT INTO participates (person, task, entry)
+   (SELECT NAME_NAME, 2, TITLE_ID
+   FROM IMDB.ACTRESSES, Entry
+   WHERE TITLE_ID = Entry.id);
+
+INSERT INTO DBLAB01.Person (id, name)
+   (SELECT a.NAME_ID, a.NAME_NAME
+   FROM IMDB.WRITERS a, DBLAB01.Entry
+   WHERE a.TITLE_ID = Entry.id);
+INSERT INTO participates (person, task, entry)
+   (SELECT NAME_NAME, 3, TITLE_ID
+   FROM IMDB.WRITERS, Entry
+   WHERE TITLE_ID = Entry.id);
+
+INSERT INTO DBLAB01.Person (id, name)
+   (SELECT a.NAME_ID, a.NAME_NAME
+   FROM IMDB.DIRECTORS a, DBLAB01.Entry
+   WHERE a.TITLE_ID = Entry.id);
+INSERT INTO participates (person, task, entry)
+   (SELECT NAME_NAME, 4, TITLE_ID
+   FROM IMDB.DIRECTORS, Entry
+   WHERE TITLE_ID = Entry.id);
+
+INSERT INTO DBLAB01.Person (id, name)
+   (SELECT a.NAME_ID, a.NAME_NAME
+   FROM IMDB.CINEMATOGRAPHERS a, DBLAB01.Entry
+   WHERE a.TITLE_ID = Entry.id);
+INSERT INTO participates (person, task, entry)
+   (SELECT NAME_NAME, 5, TITLE_ID
+   FROM IMDB.CINEMATOGRAPHERS, Entry
+   WHERE TITLE_ID = Entry.id);
+
+INSERT INTO DBLAB01.Person (id, name)
+   (SELECT a.NAME_ID, a.NAME_NAME
+   FROM IMDB.COMPOSERS a, DBLAB01.Entry
+   WHERE a.TITLE_ID = Entry.id);
+INSERT INTO participates (person, task, entry)
+   (SELECT NAME_NAME, 6, TITLE_ID
+   FROM IMDB.COMPOSERS, Entry
+   WHERE TITLE_ID = Entry.id);
+
+INSERT INTO DBLAB01.Person (id, name)
+   (SELECT a.NAME_ID, a.NAME_NAME
+   FROM IMDB.COSTUME_DESIGNERS a, DBLAB01.Entry
+   WHERE a.TITLE_ID = Entry.id);
+INSERT INTO participates (person, task, entry)
+   (SELECT NAME_NAME, 7, TITLE_ID
+   FROM IMDB.COSTUME_DESIGNERS, Entry
+   WHERE TITLE_ID = Entry.id);
+
+INSERT INTO DBLAB01.Person (id, name)
+   (SELECT a.NAME_ID, a.NAME_NAME
+   FROM IMDB.PRODUCERS a, DBLAB01.Entry
+   WHERE a.TITLE_ID = Entry.id);
+INSERT INTO participates (person, task, entry)
+   (SELECT NAME_NAME, 8, TITLE_ID
+   FROM IMDB.PRODUCERS, Entry
+   WHERE TITLE_ID = Entry.id);
+
+INSERT INTO DBLAB01.Person (id, name)
+   (SELECT a.NAME_ID, a.NAME_NAME
+   FROM IMDB.EDITORS a, DBLAB01.Entry
+   WHERE a.TITLE_ID = Entry.id);
+INSERT INTO participates (person, task, entry)
+   (SELECT NAME_NAME, 9, TITLE_ID
+   FROM IMDB.EDITORS, Entry
+   WHERE TITLE_ID = Entry.id);
 \end{lstlisting}
 \end{document}
 
