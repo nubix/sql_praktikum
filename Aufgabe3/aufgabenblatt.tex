@@ -170,16 +170,17 @@ AND TITLE_TYPE='film';
 \begin{lstlisting}
 INSERT INTO Entry (name, production_year, type)
 VALUES
-  SELECT name AS x, production_year AS y, typeAS z
+  SELECT TITLE_TITLE AS name, TITLE_YEAR AS production_year, TITLE_TYPE AS type
   FROM Entry
-  WHERE y = '2001';
+  WHERE production_year = '2001';
 INSERT INTO Person (name, task)
 VALUES
-   SELECT name AS a, task AS b
-   FROM 
+   SELECT a AS name, b AS task
+   FROM Person, Task
+   WHERE
 INSERT INTO Task (name)
 VALUES
-    SELECT name AS c
+    SELECT c AS name
     FROM 
 \end{lstlisting}
 \end{document}
