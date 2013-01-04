@@ -83,12 +83,39 @@
 \makehomeworktitle
  \aufgabe{1}
  \begin{enumerate}[a.]
- \item 
+ \item\
  \begin{lstlisting}
- SELECT * FROM SYSCAT.TABLES WHERE TABSCHEMA = 'IMDB'  
+ SELECT TABNAME
+ FROM SYSCAT.TABLES 
+ WHERE TABSCHEMA = 'IMDB'  
  \end{lstlisting}
- \item 
- \item 
+ 
+ \item\ 
+ \begin{lstlisting}
+ SELECT * 
+ FROM SYSCAT.COLUMNS 
+ WHERE TABSCHEMA = 'IMDB' 
+ AND TABNAME = 'MOVIES'
+ \end{lstlisting} 
+ 
+ \item\
+ \begin{lstlisting}
+CREATE TABLE tv_movies_tmp (
+TITLE_ID varchar (400),
+TITLE_TYPE varchar (100),
+TITLE_TITLE varchar (400),
+TITLE_YEAR int (4),
+TITLE_NUMERAL int (4),
+TITLE_SUSPENDED decimal (1),
+TITLE_ATTRIBUTES varchar (400),
+EPISODE_SERIES varchar (400),
+EPISODE_TITLE varchar (400),
+EPISODE_TITLE_NUMERAL int (4),
+EPISODE_SEASON int (4),
+EPISODE_EPISODE int (4),
+EPISODE_DATE date (4),
+YEAR_RANGE varchar(100));
+ \end{lstlisting}
  \end{enumerate}
  \aufgabe{2}
  \aufgabe{3}
