@@ -136,15 +136,15 @@ YEAR_RANGE varchar(100));
  \item
  \textbf{tv\_movies\_tmp}
  \begin{lstlisting}
- ALTER TABLE tv_movies_tmp MODIFY title_id VARCHAR NOT NULL
- ALTER TABLE tv_movies_tmp MODIFY title_type VARCHAR NOT NULL
- ALTER TABLE tv_movies_tmp MODIFY title_suspended DECIMAL NOT NULL
+ ALTER TABLE tv_movies_tmp ALTER COLUMN title_id SET NOT NULL
+ ALTER TABLE tv_movies_tmp ALTER COLUMN title_type SET NOT NULL
+ ALTER TABLE tv_movies_tmp ALTER COLUMN title_suspended SET NOT NULL
  \end{lstlisting}
  \textbf{tv\_actors\_tmp}
  \begin{lstlisting}
- ALTER TABLE tv_actors_tmp MODIFY name_id VARCHAR NOT NULL
- ALTER TABLE tv_actors_tmp MODIFY name_name VARCHAR NOT NULL
- ALTER TABLE tv_actors_tmp MODIFY title_id VARCHAR NOT NULL
+ ALTER TABLE tv_actors_tmp ALTER COLUMN name_id SET NOT NULL
+ ALTER TABLE tv_actors_tmp ALTER COLUMN name_name SET NOT NULL
+ ALTER TABLE tv_actors_tmp ALTER COLUMN title_id SET NOT NULL
  \end{lstlisting} 
  \end{enumerate}
  \aufgabe{4}
