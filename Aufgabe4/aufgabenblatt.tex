@@ -94,10 +94,10 @@
  \item\ 
  SELECT-Anfrage auf den \textit{database catalog} um die Struktur der IMDB.MOVIES-Tabelle auszugeben:
  \begin{lstlisting}
- SELECT * 
+ SELECT COLNAME, TYPENAME, LENGTH 
  FROM SYSCAT.COLUMNS 
  WHERE TABSCHEMA = 'IMDB' 
- AND TABNAME = 'MOVIES'
+ AND TABNAME = 'MOVIES' ORDER BY COLNO
  \end{lstlisting} 
  
  \item\
@@ -163,9 +163,22 @@ YEAR_RANGE varchar(100));
  CREATE TABLE tv_actors LIKE tv_actors_tmp
  \end{lstlisting}
  \aufgabe{5}
- 
+ Passende PRIMARY KEYS und FOREIGN KEYS einf\"ugen:
+ \begin{lstlisting}
+ ALTER TABLE TV_MOVIES ADD PRIMARY KEY (TITLE_ID, TITLE_TYPE);
+ ALTER TABLE TV_ACTORS ADD PRIMARY KEY (NAME_ID, NAME_NAME); 
+ \end{lstlisting}
  \aufgabe{6}
+ \textbf{tv\_movies} und \textbf{tv\_actors} hit entsprechenden Daten f\"ullen:
+ Nur \textit{TV movies} aus dem Jahr \textit{2008} und alle ihre \textit{actors} und \textit{actresses} eintragen:
+ \begin{lstlisting}
+ SELECT * FROM IMDB.MOVIES WHERE TITLE_TYPE = 'TV movie' AND TITLE_YEAR = '2008'
+ \end{lstlisting}
  \aufgabe{7}
+ \textit{materialized view} namens \textit{actor\_co\_occurrences} erstellen, die \textit{tv\_movies} und  \textit{tv\_actors} basiert. Folgende Signatur: 
+ \begin{lstlisting}
+ actor_co_occurrences(actor1, actor2, movie)
+ \end{lstlisting}
  \aufgabe{8}
  \aufgabe{9}
  \aufgabe{10}
