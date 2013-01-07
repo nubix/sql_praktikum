@@ -84,13 +84,15 @@
  \aufgabe{1}
  \begin{enumerate}[a.]
  \item\
+ SELECT-Anfrage auf den \textit{database catalog} um alle IMDB-Schema Tabellen auszugeben: 
  \begin{lstlisting}
- SELECT TABNAME
+ SELECT TABNAME as Tabellen
  FROM SYSCAT.TABLES 
  WHERE TABSCHEMA = 'IMDB'  
  \end{lstlisting}
  
  \item\ 
+ SELECT-Anfrage auf den \textit{database catalog} um die Struktur der IMDB.MOVIES-Tabelle auszugeben:
  \begin{lstlisting}
  SELECT * 
  FROM SYSCAT.COLUMNS 
@@ -99,32 +101,38 @@
  \end{lstlisting} 
  
  \item\
+ \textbf{IMDB.MOVIES}-Struktur manuell als \textbf{tv\_movies\_tmp} kopiert: 
  \begin{lstlisting}
 CREATE TABLE tv_movies_tmp (
-TITLE_ID varchar (400),
-TITLE_TYPE varchar (100),
-TITLE_TITLE varchar (400),
-TITLE_YEAR int (4),
-TITLE_NUMERAL int (4),
-TITLE_SUSPENDED decimal (1),
-TITLE_ATTRIBUTES varchar (400),
-EPISODE_SERIES varchar (400),
-EPISODE_TITLE varchar (400),
-EPISODE_TITLE_NUMERAL int (4),
-EPISODE_SEASON int (4),
-EPISODE_EPISODE int (4),
-EPISODE_DATE date (4),
+TITLE_ID varchar(400),
+TITLE_TYPE varchar(100),
+TITLE_TITLE varchar(400),
+TITLE_YEAR integer,
+TITLE_NUMERAL integer,
+TITLE_SUSPENDED decimal,
+TITLE_ATTRIBUTES varchar(400),
+EPISODE_SERIES varchar(400),
+EPISODE_TITLE varchar(400),
+EPISODE_TITLE_NUMERAL integer,
+EPISODE_SEASON integer,
+EPISODE_EPISODE integer,
+EPISODE_DATE date,
 YEAR_RANGE varchar(100));
  \end{lstlisting}
  \end{enumerate}
  \aufgabe{2}
+ Struktur einer Tabelle mit 
+ \begin{lstlisting} 
+ CREATE TABLE LIKE 
+ \end{lstlisting}
+ kopieren: (in diesem Fall die Struktur von \textbf{IMDB.ACTORS})
  \begin{lstlisting}
  CREATE TABLE tv_actors_tmp LIKE IMDB.ACTORS
  \end{lstlisting}
  \aufgabe{3}
  \begin{enumerate}[a.]
  \item
- \"Uberhaupt keine NULL-Werte enthalten: \\\\
+ Tabellen die \"uberhaupt keine NULL-Werte enthalten: \\\\
  \textbf{IMDB.MOVIES}: \\
  TITLE\_ID \\
  TITLE\_TYPE \\
@@ -134,6 +142,7 @@ YEAR_RANGE varchar(100));
  TITLE\_ID \\
  NAME\_ID \\
  \item
+ NOT NULL CONSTRAINT zu \textbf{tv\_movies\_tmp} und zu \textbf{tv\_actors\_tmp} hinzuf\"ugen: 
  \textbf{tv\_movies\_tmp}
  \begin{lstlisting}
  ALTER TABLE tv_movies_tmp ALTER COLUMN title_id SET NOT NULL
@@ -148,6 +157,7 @@ YEAR_RANGE varchar(100));
  \end{lstlisting} 
  \end{enumerate}
  \aufgabe{4}
+ Struktur von \textbf{tv\_movies\_tmp} und \textbf{tv\_actors\_tmp} kopieren und zwei neue Tabellen \textbf{tv\_movies} und \textbf{tv\_actors} mit derselben Struktur erstellen: 
  \begin{lstlisting}
  CREATE TABLE tv_movies LIKE tv_movies_tmp
  CREATE TABLE tv_actors LIKE tv_actors_tmp
