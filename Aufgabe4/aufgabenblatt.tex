@@ -124,7 +124,28 @@ YEAR_RANGE varchar(100));
  \aufgabe{3}
  \begin{enumerate}[a.]
  \item
+ \"Uberhaupt keine NULL-Werte enthalten: \\\\
+ \textbf{IMDB.MOVIES}: \\
+ TITLE\_ID \\
+ TITLE\_TYPE \\
+ TITLE\_SUSPENDED \\\\
+ \textbf{IMDB.ACTORS}: \\
+ NAME\_NAME \\
+ TITLE\_ID \\
+ NAME\_ID \\
  \item
+ \textbf{tv\_movies\_tmp}
+ \begin{lstlisting}
+ ALTER TABLE tv_movies_tmp MODIFY title_id VARCHAR NOT NULL
+ ALTER TABLE tv_movies_tmp MODIFY title_type VARCHAR NOT NULL
+ ALTER TABLE tv_movies_tmp MODIFY title_suspended DECIMAL NOT NULL
+ \end{lstlisting}
+ \textbf{tv\_actors\_tmp}
+ \begin{lstlisting}
+ ALTER TABLE tv_actors_tmp MODIFY name_id VARCHAR NOT NULL
+ ALTER TABLE tv_actors_tmp MODIFY name_name VARCHAR NOT NULL
+ ALTER TABLE tv_actors_tmp MODIFY title_id VARCHAR NOT NULL
+ \end{lstlisting} 
  \end{enumerate}
  \aufgabe{4}
  \aufgabe{5}
