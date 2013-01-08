@@ -86,7 +86,7 @@
  \item\
  SELECT-Anfrage auf den \textit{database catalog} um alle IMDB-Schema Tabellen auszugeben: 
  \begin{lstlisting}
- SELECT TABNAME as Tabellen
+ SELECT TABNAME AS Tabellen
  FROM SYSCAT.TABLES 
  WHERE TABSCHEMA = 'IMDB'  
  \end{lstlisting}
@@ -97,7 +97,8 @@
  SELECT COLNAME, TYPENAME, LENGTH 
  FROM SYSCAT.COLUMNS 
  WHERE TABSCHEMA = 'IMDB' 
- AND TABNAME = 'MOVIES' ORDER BY COLNO
+ AND TABNAME = 'MOVIES' 
+ ORDER BY COLNO
  \end{lstlisting} 
  
  \item\
@@ -163,10 +164,10 @@ YEAR_RANGE varchar(100));
  CREATE TABLE tv_actors LIKE tv_actors_tmp
  \end{lstlisting}
  \aufgabe{5}
- Passende PRIMARY KEYS und FOREIGN KEYS einf\"ugen:
+ In der Tabelle \textbf{tv\_movies} wird der PRIMARY KEY zusammengesetzt aus \texttt{TITLE\_ID} und \texttt{TITLE\_TYPE} da die \texttt{TITLE\_ID} den Namen eines Films oder einer Serie beschreibt, jedoch kann von einer Serie auch ein Film erstellt worden sein, der denselben Namen tr\"agt. \texttt{TITLE\_ID} ist sowohl in \textbf{tv\_movies} als auch in \textbf{tv\_actors} vorhanden, durch den Titel wird die Verbindung zwischen dem Schauspieler und einem Film / einer Serie aufgebaut. Die \texttt{TITLE\_ID} ist somit einzigartig und somit auch ein Fremdschl\"ussel.
  \begin{lstlisting}
  ALTER TABLE TV_MOVIES ADD PRIMARY KEY (TITLE_ID, TITLE_TYPE);
- ALTER TABLE TV_ACTORS ADD PRIMARY KEY (NAME_ID, NAME_NAME); 
+ ALTER TABLE TV_ACTORS ADD PRIMARY KEY (NAME_ID); 
  ALTER TABLE TV_ACTORS ADD UNIQUE (TITLE_ID);
  ALTER TABLE TV_MOVIES ADD UNIQUE (TITLE_ID);
  ALTER TABLE TV_ACTORS ADD FOREIGN KEY (TITLE_ID) REFERENCES TV_MOVIES (TITLE_ID);
