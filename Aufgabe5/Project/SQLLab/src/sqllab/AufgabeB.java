@@ -66,4 +66,5 @@ public class AufgabeB {
 					connectionProps.getProperty("password")
 					);
 	}
+    
 }
