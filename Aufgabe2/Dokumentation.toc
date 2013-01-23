@@ -1,0 +1,12 @@
+\contentsline {section}{\numberline {1}Einleitung}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Allgemeines}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Formatierung}{2}{subsection.1.2}
+\contentsline {section}{\numberline {2}Pre-Integration Analyse}{3}{section.2}
+\contentsline {section}{\numberline {3}Vergleich der Schemata}{3}{section.3}
+\contentsline {section}{\numberline {4}Angleichung der Schemata}{4}{section.4}
+\contentsline {subsection}{\numberline {4.1}Genre}{4}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Comment}{4}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}User}{4}{subsection.4.3}
+\contentsline {section}{\numberline {5}Zusammenf\IeC {\"u}hrung und Restrukturierung}{4}{section.5}
+\contentsline {subsection}{\numberline {5.1}Diagramm - Paket \textsc {first.fm}}{6}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Diagramm - Paket \textsc {netflax}}{7}{subsection.5.2}
