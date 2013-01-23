@@ -68,8 +68,7 @@ public class AufgabeA {
 		String [] sts = {
 			"CREATE TABLE participations ( actor VARCHAR(100) NOT NULL, movie VARCHAR(400) NOT NULL, movie_title VARCHAR(400) NOT NULL, PRIMARY KEY(actor, movie) );",
 			"INSERT INTO participations ( SELECT DISTINCT a.name_name, m.title_id, m.title_title
-            FROM ( SELECT * FROM imdb.actors UNION ALL SELECT * FROM imdb.actresses
-            ) AS a
+            FROM ( SELECT * FROM imdb.actors UNION ALL SELECT * FROM imdb.actresses) AS a
             JOIN imdb.movies AS m ON a.title_id = m.title_id WHERE m.title_year = 2008 AND m.title_type = 'film');",
             "CREATE TABLE actor_cooccurrence AS ( SELECT DISTINCT p1.actor AS actor_from, p2.actor AS actor_to, p1.movie_title AS movie
             FROM participations AS p1
