@@ -11,7 +11,7 @@ package sqllab;
 public class SQLLab {
 
 	/**
-	 * @param args the command line arguments
+	 * @param args the commant line arguments
 	 */
 	public static void main(String[] args) {
 		// TODO code application logic here
