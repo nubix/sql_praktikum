@@ -4,12 +4,8 @@
  */
 package sqllab;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.io.*;
+import java.sql.*;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,22 +15,25 @@ import java.util.logging.Logger;
  * @author Jan Germann <j.germann@tu-bs.de>
  */
 public class AufgabeB {
+
+	private static PreparedStatement getActorToActor;
+
 	/**
 	 * @param args the command line arguments
 	 */
 	public static void main(String[] args) {
 		doMenu();
-        private PreparedStatement getActorToActor;
-        Connection conn = null;
+        
+        Connection conn;
 		try {
 			Properties props = new Properties();
 			props.load(new FileInputStream(new File("connection.properties")));
 			conn = getConnection(props);
             
-            getActorToActor = conn.prepareStatement("WITH himself(name, num) AS ( VALUES(?, 0) ), first_grade(name, num, actor1, title1) AS ( SELECT DISTINCT actor_to, 1, actor_from, movie FROM actor_cooccurrence WHERE actor_from IN (SELECT name FROM himself) UNION ALL (SELECT h.*, '', '' FROM himself h) ), second_grade( name, num, actor1, title1, actor2, title2 ) AS ( SELECT DISTINCT actor_to, 2, actor1, title1, actor_from, movie FROM first_grade AS f JOIN actor_cooccurrence ON actor_from = f.name UNION ALL (SELECT f.*, '', '' FROM first_grade AS f) ), third_grade( name, num, actor1, title1, actor2, title2, actor3, title3 ) AS ( SELECT DISTINCT actor_to, 3, actor1, title1, actor2, title2, actor_from, movie FROM actor_cooccurrence JOIN second_grade AS s ON actor_from = s.name UNION ALL (SELECT s.*,'','' FROM second_grade AS s) ) SELECT DISTINCT name, num, actor1, title1, actor2, title2, actor3, title3 FROM third_grade WHERE name = ? ORDER BY num ASC;");
-            
+            getActorToActor = conn.prepareStatement("WITH himself(name, num) AS ( VALUES(?, 0) ), first_grade(name, num, actor1, title1) AS ( SELECT DISTINCT actor_to, 1, actor_from, movie FROM actor_cooccurrence WHERE actor_from IN (SELECT name FROM himself) UNION ALL (SELECT h.*, '', '' FROM himself h) ), second_grade( name, num, actor1, title1, actor2, title2 ) AS ( SELECT DISTINCT actor_to, 2, actor1, title1, actor_from, movie FROM first_grade AS f JOIN actor_cooccurrence ON actor_from = f.name UNION ALL (SELECT f.*, '', '' FROM first_grade AS f) ), third_grade( name, num, actor1, title1, actor2, title2, actor3, title3 ) AS ( SELECT DISTINCT actor_to, 3, actor1, title1, actor2, title2, actor_from, movie FROM actor_cooccurrence JOIN second_grade AS s ON actor_from = s.name UNION ALL (SELECT s.*,'','' FROM second_grade AS s) ) SELECT DISTINCT name, num, actor1, title1, actor2, title2, actor3, title3 FROM third_grade WHERE name = ? ORDER BY num ASC");
+			
 		} catch(Exception ex) {
-			ex.printStackTrace();
+			Logger.getLogger(AufgabeB.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 
@@ -57,6 +56,14 @@ public class AufgabeB {
 			return s;
 		}
 
+	}
+
+	public static String getActorsConnection(String name1, String name2, Connection conn) throws SQLException {
+		getActorToActor.setString(1, name1);
+		getActorToActor.setString(2, name2);
+		ResultSet executeQuery = getActorToActor.executeQuery();
+		
+		return "";
 	}
 
 	/**
