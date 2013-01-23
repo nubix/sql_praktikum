@@ -8,12 +8,6 @@ package sqllab;
  *
  * @author Jan Germann <j.germann@tu-bs.de>
  */
-public class SQLLab {
+public class AufgabeB {
 
-	/**
-	 * @param args the command line arguments
-	 */
-	public static void main(String[] args) {
-		// TODO code application logic here
-	}
 }
