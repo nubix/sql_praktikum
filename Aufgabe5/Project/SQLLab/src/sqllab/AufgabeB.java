@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class AufgabeB {
 	private static String getActorToActorSQL = "WITH himself(name, num) AS ( VALUES(?, 0) ), first_grade(name, num, actor1, title1) AS ( SELECT DISTINCT actor_to, 1, actor_from, movie FROM actor_cooccurrence WHERE actor_from IN (SELECT name FROM himself) UNION ALL (SELECT h.*, '', '' FROM himself h) ), second_grade( name, num, actor1, title1, actor2, title2 ) AS ( SELECT DISTINCT actor_to, 2, actor1, title1, actor_from, movie FROM first_grade AS f JOIN actor_cooccurrence ON actor_from = f.name UNION ALL (SELECT f.*, '', '' FROM first_grade AS f) ), third_grade( name, num, actor1, title1, actor2, title2, actor3, title3 ) AS ( SELECT DISTINCT actor_to, 3, actor1, title1, actor2, title2, actor_from, movie FROM actor_cooccurrence JOIN second_grade AS s ON actor_from = s.name UNION ALL (SELECT s.*,'','' FROM second_grade AS s) ) SELECT DISTINCT name, num, actor1, title1, actor2, title2, actor3, title3 FROM third_grade WHERE name = ? ORDER BY num ASC";
 	private static String getActorToActorCachedSQL = "SELECT name, num, actor1, title1, actor2, title2, actor3, title3 FROM best_connection WHERE name = ? AND actor1 = ?";
-	private static String createBestConnections = "";
+	private static String createBestConnections = "CREATE TABLE best_connection ( name varchar(400) NOT NULL, num varchar(400), actor1 varchar(400) NOT NULL, title1 varchar(400), actor2 varchar(400), title2 varchar(400), actor3 varchar(400), title3 varchar(400), PRIMARY KEY(name, actor1) );";
 	private static PreparedStatement getActorToActor;
 	private static PreparedStatement getActorToActorCached;
 
