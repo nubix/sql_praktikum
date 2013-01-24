@@ -17,9 +17,12 @@ import java.util.logging.Logger;
 public class AufgabeB {
 	private static String getActorToActorSQL = "WITH himself(name, num) AS ( VALUES(?, 0) ), first_grade(name, num, actor1, title1) AS ( SELECT DISTINCT actor_to, 1, actor_from, movie FROM actor_cooccurrence WHERE actor_from IN (SELECT name FROM himself) UNION ALL (SELECT h.*, '', '' FROM himself h) ), second_grade( name, num, actor1, title1, actor2, title2 ) AS ( SELECT DISTINCT actor_to, 2, actor1, title1, actor_from, movie FROM first_grade AS f JOIN actor_cooccurrence ON actor_from = f.name UNION ALL (SELECT f.*, '', '' FROM first_grade AS f) ), third_grade( name, num, actor1, title1, actor2, title2, actor3, title3 ) AS ( SELECT DISTINCT actor_to, 3, actor1, title1, actor2, title2, actor_from, movie FROM actor_cooccurrence JOIN second_grade AS s ON actor_from = s.name UNION ALL (SELECT s.*,'','' FROM second_grade AS s) ) SELECT DISTINCT name, num, actor1, title1, actor2, title2, actor3, title3 FROM third_grade WHERE name = ? ORDER BY num ASC";
 	private static String getActorToActorCachedSQL = "SELECT name, num, actor1, title1, actor2, title2, actor3, title3 FROM best_connection WHERE name = ? AND actor1 = ?";
-	private static String createBestConnections = "CREATE TABLE best_connection ( name varchar(400) NOT NULL, num varchar(400), actor1 varchar(400) NOT NULL, title1 varchar(400), actor2 varchar(400), title2 varchar(400), actor3 varchar(400), title3 varchar(400), PRIMARY KEY(name, actor1) );";
+	private static String createBestConnectionsTableSQL = "CREATE TABLE best_connection ( name varchar(400) NOT NULL, num varchar(400), actor1 varchar(400) NOT NULL, title1 varchar(400), actor2 varchar(400), title2 varchar(400), actor3 varchar(400), title3 varchar(400), PRIMARY KEY(name, actor1) )";
+	private static String insertActorConnectionSQL = "INSERT INTO best_connection (name, num, actor1, title1, actor2, title2, actor3, title3) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 	private static PreparedStatement getActorToActor;
 	private static PreparedStatement getActorToActorCached;
+	private static PreparedStatement createBestConnectionsTable;
+	private static PreparedStatement insertActorConnection;
 
 	/**
 	 * @param args the command line arguments
@@ -40,6 +43,8 @@ public class AufgabeB {
             
             getActorToActor = conn.prepareStatement(getActorToActorSQL, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			getActorToActorCached = conn.prepareStatement(getActorToActorCachedSQL, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			createBestConnectionsTable = conn.prepareStatement(createBestConnectionsTableSQL, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			insertActorConnection = conn.prepareStatement(insertActorConnectionSQL, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
 			/*
 			 * Get actor names
@@ -54,20 +59,32 @@ public class AufgabeB {
 			while(!cmd.equalsIgnoreCase("exit")) {
 				String output = "";
 				ResultSet result = null;
-				
+
+				/*
+				 * Try to get a cached result if it's the first action
+				 */
 				if(skip == 0) {
 					result = getActorsConnections(actor1, actor2, conn, true);
+					System.out.println("This is a cached result.");
 				}
+				/*
+				 * If there's no cached result or the user wants a noncached
+				 * result. Get a noncached one.
+				 */
 				if(skip != 0 || result == null) {
 					result = getActorsConnections(actor1, actor2, conn, false);
+					System.out.println("This is not a cached result.");
 				}
-				shortestPath = result.getInt("NUM");
 
+
+				result.beforeFirst();
 				if (!result.next() ) {
 					System.out.println("no data");
 					return;
 				}
-
+				
+				
+				shortestPath = result.getInt("NUM");
 				
 				/*
 				 * Get the number of shortest paths
@@ -75,15 +92,18 @@ public class AufgabeB {
 				 */
 				while(shortestPath == result.getInt("NUM")) {
 					connectionCount++;
+					if(result.isLast())
+						break;
 					result.next();
+
 				}
 				result.first();
 
-				if(connectionCount > 1) {
-					System.out.println("There are " + connectionCount + " possible paths.");
-					String s = getStdin("Which one to show? Number: ");
-					skip = Integer.parseInt(s) ;
-				}
+//				if(connectionCount > 1) {
+//					System.out.println("There are " + connectionCount + " possible paths.");
+//					String s = getStdin("Which one to show? Number: ");
+//					skip = Integer.parseInt(s) ;
+//				}
 
 
 				/*
@@ -104,9 +124,10 @@ public class AufgabeB {
 				 * Display of a path
 				 */
 				output += "Shortest path has " + result.getString("NUM") + " hops\n";
-				for(int i=1; result.getInt("NUM") >= i; i++)
+				for(int i=1; result.getInt("NUM") >= i; i++) {
 					output += result.getString("ACTOR"+i) + " -> "
-							+ result.getString("TITLE"+i) +  " -> " ;
+							+ result.getString("TITLE"+i) +  " -> ";
+				}
 				output += result.getString("NAME");
 				System.out.println(output);
 
@@ -116,9 +137,20 @@ public class AufgabeB {
 				 * Ask what todo
 				 */
 				cmd = getStdin("save/next/exit\n$> ");
+				
 				if(cmd.equalsIgnoreCase("save")) {
-					// TODO Safe current path
-					System.err.println("Saving not implemented yet");
+					/*
+					 * Saves the current path
+					 */
+					String [] actorsAndTitles = new String[6];
+					int j = 0;
+					for(int i=1; result.getInt("NUM") >= i; i++) {
+						actorsAndTitles[j] = result.getString("ACTOR"+i);
+						actorsAndTitles[j+1] = result.getString("TITLE"+i);
+						j+=2;
+					}
+					saveActorConnection(conn, result.getString("name"), result.getInt("num"), actorsAndTitles);
+					System.out.println("Connection saved.");
 					result.close();
 				} else if (cmd.equalsIgnoreCase("next")) {
 					skip++;
@@ -159,6 +191,25 @@ public class AufgabeB {
 	}
 
 	/**
+	 * Saves a connection to the cache table
+	 * 
+	 * @param conn Connection to use
+	 * @param name Name of the starting user
+	 * @param num
+	 * @param actorsAndTitles array with connection
+	 * @throws SQLException
+	 */
+	public static void saveActorConnection(Connection conn, String name, int num, String [] actorsAndTitles) throws SQLException {
+		insertActorConnection.setString(1, name);
+		insertActorConnection.setInt(2,	num);
+		for(int i=0; i<6; i++) {
+			insertActorConnection.setString(i+3, actorsAndTitles[i]);
+		}
+
+		insertActorConnection.executeUpdate();
+	}
+
+	/**
 	 * 
 	 * @param name1
 	 * @param name2
@@ -172,17 +223,17 @@ public class AufgabeB {
 		String returnVal = "";
 		ResultSet result = null;
 
-		if(!cached) {
+		if(cached) {
+			getActorToActorCached.setString(1, name2);
+			getActorToActorCached.setString(2, name1);
+			result = getActorToActorCached.executeQuery();
+		} else {
 			getActorToActor.setString(1, name1);
 			getActorToActor.setString(2, name2);
 			result = getActorToActor.executeQuery();
-		} else {
-			getActorToActorCached.setString(1, name1);
-			getActorToActorCached.setString(2, name2);
-			result = getActorToActorCached.executeQuery();
 		}
 
-		if(result.next() == false)
+		if (!result.next())
 			return null;
 
 		return result;
