@@ -19,10 +19,12 @@ public class AufgabeB {
 	private static String getActorToActorCachedSQL = "SELECT name, num, actor1, title1, actor2, title2, actor3, title3 FROM best_connection WHERE name = ? AND actor1 = ?";
 	private static String createBestConnectionsTableSQL = "CREATE TABLE best_connection ( name varchar(400) NOT NULL, num varchar(400), actor1 varchar(400) NOT NULL, title1 varchar(400), actor2 varchar(400), title2 varchar(400), actor3 varchar(400), title3 varchar(400), PRIMARY KEY(name, actor1) )";
 	private static String insertActorConnectionSQL = "INSERT INTO best_connection (name, num, actor1, title1, actor2, title2, actor3, title3) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	private static String deleteActorConnectionSQL = "DELETE FROM best_connection WHERE name = ? AND actor1 = ?";
 	private static PreparedStatement getActorToActor;
 	private static PreparedStatement getActorToActorCached;
 	private static PreparedStatement createBestConnectionsTable;
 	private static PreparedStatement insertActorConnection;
+	private static PreparedStatement deleteActorConnection;
 
 	/**
 	 * @param args the command line arguments
@@ -45,6 +47,8 @@ public class AufgabeB {
 			getActorToActorCached = conn.prepareStatement(getActorToActorCachedSQL, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			createBestConnectionsTable = conn.prepareStatement(createBestConnectionsTableSQL, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			insertActorConnection = conn.prepareStatement(insertActorConnectionSQL, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			deleteActorConnection = conn.prepareStatement(deleteActorConnectionSQL, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			
 
 			/*
 			 * Get actor names
@@ -65,7 +69,7 @@ public class AufgabeB {
 				 */
 				if(skip == 0) {
 					result = getActorsConnections(actor1, actor2, conn, true);
-					System.out.println("This is a cached result.");
+					
 				}
 				/*
 				 * If there's no cached result or the user wants a noncached
@@ -74,6 +78,8 @@ public class AufgabeB {
 				if(skip != 0 || result == null) {
 					result = getActorsConnections(actor1, actor2, conn, false);
 					System.out.println("This is not a cached result.");
+				} else {
+					System.out.println("This is a cached result.");
 				}
 
 
@@ -205,6 +211,13 @@ public class AufgabeB {
 		for(int i=0; i<6; i++) {
 			insertActorConnection.setString(i+3, actorsAndTitles[i]);
 		}
+
+		/*
+		 * Delete old data before insertion
+		 */
+		deleteActorConnection.setString(1, name);
+		deleteActorConnection.setString(2, actorsAndTitles[0]);
+		deleteActorConnection.executeUpdate();
 
 		insertActorConnection.executeUpdate();
 	}
