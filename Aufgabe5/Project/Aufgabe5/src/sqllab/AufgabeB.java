@@ -81,15 +81,15 @@ public class AufgabeB {
 				} else {
 					System.out.println("This is a cached result.");
 				}
-
-
+                
+                
 				result.beforeFirst();
 				if (!result.next() ) {
 					System.out.println("no data");
 					return;
 				}
 				
-				
+
 				shortestPath = result.getInt("NUM");
 				
 				/*
@@ -119,7 +119,7 @@ public class AufgabeB {
 					result.next();
 					if(result.getInt("NUM") > shortestPath) {
 						result.first();
-						System.out.println("You have iteratet through all possible connections. Showing first one again.");
+						System.out.println("You have iterated through all possible connections. Showing first one again.");
 						skip=0;
 						break;
 					}
