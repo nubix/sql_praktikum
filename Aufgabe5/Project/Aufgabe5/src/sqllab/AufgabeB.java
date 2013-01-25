@@ -89,7 +89,6 @@ public class AufgabeB {
 					return;
 				}
 				
-
 				shortestPath = result.getInt("NUM");
 				
 				/*
