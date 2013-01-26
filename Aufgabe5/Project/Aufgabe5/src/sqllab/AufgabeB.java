@@ -82,13 +82,17 @@ public class AufgabeB {
 					System.out.println("This is a cached result.");
 				}
                 
-                
-				result.beforeFirst();
-				if (!result.next() ) {
-					System.out.println("no data");
+                if(result != null) {
+					result.beforeFirst();
+					if (!result.next() ) {
+						System.out.println("There is no such path.");
+						return;
+					}
+				} else {
+					System.err.println("There is no such path.");
 					return;
 				}
-				
+	
 				shortestPath = result.getInt("NUM");
 				
 				/*
@@ -167,12 +171,6 @@ public class AufgabeB {
 		}
 	}
 
-
-	public static void showPath() {
-				
-	}
-
-
 	/**
 	 * Read from stdin
 	 * 
@@ -186,7 +184,9 @@ public class AufgabeB {
 			System.out.print(caption);
 
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-			s = in.readLine();
+
+			s = new String(in.readLine().getBytes(), "UTF-8");
+
 			System.out.println("");
 		} catch (IOException ex) {
 			Logger.getLogger(AufgabeB.class.getName()).log(Level.SEVERE, null, ex);
