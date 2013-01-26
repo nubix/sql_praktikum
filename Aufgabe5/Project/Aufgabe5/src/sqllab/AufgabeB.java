@@ -89,7 +89,7 @@ public class AufgabeB {
 						return;
 					}
 				} else {
-					System.err.println("There is no such path.");
+					System.out.println("There is no such path.");
 					return;
 				}
 	
