@@ -29,7 +29,7 @@ public class AufgabeB {
 	/**
 	 * @param args the command line arguments
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) {        
         Connection conn;
 		int skip = 0;
 		int shortestPath = 0;
@@ -108,6 +108,12 @@ public class AufgabeB {
 				}
 				result.first();
 
+//				if(connectionCount > 1) {
+//					System.out.println("There are " + connectionCount + " possible paths.");
+//					String s = getStdin("Which one to show? Number: ");
+//					skip = Integer.parseInt(s) ;
+//				}
+
 
 				/*
 				* Possibility to show other paths
@@ -116,7 +122,7 @@ public class AufgabeB {
 					result.next();
 					if(result.getInt("NUM") > shortestPath) {
 						result.first();
-						System.out.println("There are no more equally long connections. Showing first one again.");
+						System.out.println("You have iterated through all possible connections. Showing first one again.");
 						skip=0;
 						break;
 					}
@@ -216,14 +222,12 @@ public class AufgabeB {
 	}
 
 	/**
-	 * Returns a ResultSet containing the connection between to actors
-	 *
-	 * @param name1 an actorname
-	 * @param name2 another actorname
-	 * @param conn The db connection to be used
-	 * @param cached If the connection should be obtained using the cache
-	 * @return The ResultsSet containing the conncetion
-	 * @throws SQLException if something goes wrong
+	 * 
+	 * @param name1
+	 * @param name2
+	 * @param conn
+	 * @param skip
+	 * @return
 	 */
 	public static ResultSet getActorsConnections(String name1, String name2, Connection conn, boolean cached) throws SQLException {
 		int shortestPath = 0;
